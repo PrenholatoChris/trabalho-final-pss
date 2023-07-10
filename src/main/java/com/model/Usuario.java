@@ -58,6 +58,10 @@ public class Usuario {
         this.senha = senha;
     }
 
+    public void setIsAdmin(Boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+
     @Override
     public String toString() {
         return String.format("USR_COD=%s NOME=%s SENHA=%s isAdmin=%b",this.getUsrCod(), this.getNome(), this.getUsrCod(), this.getSenha(), this.getIsAdmin());

@@ -8,6 +8,9 @@ package com.model;
  *
  * @author chris
  */
+
+//VANDERSON: Esta classes é realmente necessária? A gente não pode tratar todos os casos de uso especifícos do administrador usando somente a variável boleana no Usuário?
+
 public class Admin extends Usuario{
     private String nome;
     private String senha;
