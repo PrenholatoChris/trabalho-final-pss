@@ -12,6 +12,7 @@ import com.model.Notificacao;
 
 import com.model.Usuario;
 import com.model.UsuarioNotificacao;
+import com.presenter.TelaPrincipalPresenter;
 import java.util.List;
 
 
@@ -22,12 +23,12 @@ import java.util.List;
 public class TrabalhoFinal {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
         
         SQLite sqlite = new SQLite("./banco.db");
-         sqlite.conectar();
-         
-         
+        sqlite.conectar();
+        
+        new TelaPrincipalPresenter();
+        
 //         
 //        UsuarioDAO usuarioDAO = new UsuarioDAO(sqlite.getConnection());
 //        usuarioDAO.deletarTabelaUsuario();
