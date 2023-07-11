@@ -7,6 +7,7 @@ package com.services;
 import com.dao.UsuarioDAO;
 import com.model.Usuario;
 import com.commands.gerente_usuarios.*;
+import com.dto.UsuarioBuscaDTO;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -72,9 +73,9 @@ public class GerenteUsuarios {
         return comando.getUsuarioEncontrado();
     }
     
-    public List<Usuario> buscarUsuarios(Map<String, Object> valoresPorAtributo){
+    public List<Usuario> buscarUsuarios(UsuarioBuscaDTO buscaDto){
         BuscarUsuariosCommand comando = (BuscarUsuariosCommand)comandos.get("Buscar");
-        comando.setValoresPorAtributo(valoresPorAtributo);
+        comando.setBuscaDto(buscaDto);
         comando.executar();
         return comando.getUsuariosEncontrados();
     }

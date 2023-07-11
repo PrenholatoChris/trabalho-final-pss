@@ -4,11 +4,10 @@
  */
 package com.commands.gerente_usuarios;
 
+import com.dto.UsuarioBuscaDTO;
 import com.model.Usuario;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  *
@@ -16,54 +15,38 @@ import java.util.Map;
  */
 public class BuscarUsuariosCommand extends GerenteUsuariosCommand{
     private List<Usuario> usuariosEncontrados;
-    private Map<String, Object> valoresPorAtributo;
+    private UsuarioBuscaDTO buscaDto;
 
     public List<Usuario> getUsuariosEncontrados() {
         return usuariosEncontrados;
     }
 
-    public void setValoresPorAtributo(Map<String, Object> valoresPorAtributo) {
-        this.valoresPorAtributo = valoresPorAtributo;
+    public void setBuscaDto(UsuarioBuscaDTO buscaDto) {
+        this.buscaDto = buscaDto;
     }
     
     public BuscarUsuariosCommand(List<Usuario> usuarios){
         super.usuarios = usuarios;
+        this.usuariosEncontrados = new ArrayList<>();
     }
     
     @Override
     public void executar(){
-        int index = 0;
-        ArrayList<Usuario> usuariosRemovidos = new ArrayList<>();
-        usuariosEncontrados = new ArrayList<>(usuarios);
+        usuariosEncontrados.clear();
         for(Usuario usuario : usuarios){
-            boolean foiAdicionado = false;
-            index = 0;
-            while(index < valoresPorAtributo.size() && !foiAdicionado){
-                String atributo = (String)valoresPorAtributo.keySet().toArray()[index];
-                switch(atributo){
-                    case "nome":
-                        if(usuario.getNome().compareTo((String)valoresPorAtributo.get(atributo)) != 0){
-                            usuariosRemovidos.add(usuario);
-                            foiAdicionado = true;
-                        }
-                        break;
-                    case "senha":
-                        if(usuario.getSenha().compareTo((String)valoresPorAtributo.get(atributo)) != 0){
-                            usuariosRemovidos.add(usuario);
-                            foiAdicionado = true;
-                        }
-                        break;
-                    case "isAdmin":
-                        if(!usuario.getIsAdmin().equals((Boolean)valoresPorAtributo.get(atributo))){
-                            usuariosRemovidos.add(usuario);
-                            foiAdicionado = true;
-                        }
-                        break;
-                }
+            if(verificarUsuarioValido(usuario)){
+                usuariosEncontrados.add(usuario);
             }
         }
-        for(Usuario usuarioRemovido : usuariosRemovidos){
-            usuariosEncontrados.remove(usuarioRemovido);
-        }
+    }
+    
+    private boolean verificarUsuarioValido(Usuario usuario){
+        if(buscaDto != null){
+            if(buscaDto.getNome() != null && usuario.getNome().compareTo(buscaDto.getNome()) != 0){
+                return false;
+            }
+            return buscaDto.getIsAdmin() == null || usuario.getIsAdmin().equals(buscaDto.getIsAdmin());
+        }else
+            return true;
     }
 }
