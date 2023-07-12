@@ -4,6 +4,8 @@
  */
 package com.presenter;
 
+import com.state.tela_principal.InicializacaoState;
+import com.state.tela_principal.TelaPrincipalState;
 import com.view.TelaPrincipalView;
 
 /**
@@ -12,8 +14,16 @@ import com.view.TelaPrincipalView;
  */
 public class TelaPrincipalPresenter {
     private TelaPrincipalView view;
+    private TelaPrincipalState estado;
+
+    public void setEstado(TelaPrincipalState estado) {
+        this.estado = estado;
+    }
     
     public TelaPrincipalPresenter(){
-        view = new TelaPrincipalView();
+        this.view = new TelaPrincipalView();
+        this.estado = new InicializacaoState(this, view.getPainelConteudo());
+        
+        estado.executar();
     }
 }

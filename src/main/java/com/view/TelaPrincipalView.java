@@ -25,8 +25,11 @@ public class TelaPrincipalView {
         desktop.setLayout(new BorderLayout(0, 10));
         
         JFrame frame = new JFrame();
+        frame.setTitle("Tela Principal");
         frame.setSize(1500, 1000);
         frame.setContentPane(desktop);
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         painelConteudo = new JPanel();
         desktop.add(painelConteudo, BorderLayout.CENTER);

@@ -4,9 +4,14 @@
  */
 package com.service;
 
+import com.command.gerente_usuarios.GerenteUsuariosCommand;
+import com.command.gerente_usuarios.RemoverUsuarioCommand;
+import com.command.gerente_usuarios.BuscarUsuariosCommand;
+import com.command.gerente_usuarios.AutenticarUsuarioCommand;
+import com.command.gerente_usuarios.AtualizarUsuarioCommand;
+import com.command.gerente_usuarios.AdicionarUsuarioCommand;
 import com.dao.UsuarioDAO;
 import com.model.Usuario;
-import com.commands.gerente_usuarios.*;
 import com.dto.UsuarioBuscaDTO;
 import java.util.Arrays;
 import java.util.HashMap;

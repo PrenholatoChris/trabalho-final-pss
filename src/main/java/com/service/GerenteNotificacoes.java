@@ -4,8 +4,8 @@
  */
 package com.service;
 
-import com.commands.gerente_notificacoes.BuscarNotificacoesCommand;
-import com.commands.gerente_notificacoes.GerenteNotificacoesCommand;
+import com.command.gerente_notificacoes.BuscarNotificacoesCommand;
+import com.command.gerente_notificacoes.GerenteNotificacoesCommand;
 import com.dto.NotificacaoBuscaDTO;
 import com.model.Notificacao;
 import java.util.HashMap;
