@@ -19,12 +19,14 @@ import java.util.List;
  * @author chris
  */
 public class UsuarioDAO implements DAO<Usuario> {
+    
     private Connection conn;
     private Statement statement;
     private ResultSet resultSet;
     
-    public UsuarioDAO(Connection connection){
-        this.conn = connection;
+    public UsuarioDAO(){
+        SQLite sqlite = SQLite.getInstance();
+        this.conn = sqlite.getConnection();
         try{
             this.statement = conn.createStatement();
         }

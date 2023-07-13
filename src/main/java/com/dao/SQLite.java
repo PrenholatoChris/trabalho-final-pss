@@ -14,26 +14,32 @@ import java.sql.Statement;
  * @author chris
  */
 public class SQLite {
-
-    private Connection connection = null;
+    private static SQLite instancia;
+    private static Connection connection = null;
     private ResultSet resultSet = null;
     private Statement statement = null;
-    private final String dbFilePath;
+    private final String dbFilePath = "./banco.db";
 
-    public SQLite(String dbFilePath) {
-        this.dbFilePath = dbFilePath;
+    private SQLite() {
+        conectar();
+    }
+    
+    public static SQLite getInstance(){
+        if(instancia == null){
+            instancia = new SQLite();
+        }
+        return instancia;
     }
 
     public void conectar() {
-        try {
+        try{
             Class.forName("org.sqlite.JDBC");
-            //connection = DriverManager.getConnection("jdbc:sqlite:D:\\testdb.db");
-            connection = DriverManager.getConnection("jdbc:sqlite:" + dbFilePath);
-            statement = connection.createStatement();
-        } catch (Exception e) {
+            connection = DriverManager.getConnection("jdbc:sqlite:" + "./banco.db");
+        }catch(Exception e){
             e.printStackTrace();
         }
     }
+        
 
     public void desconectar() {
         try {
@@ -61,7 +67,7 @@ public class SQLite {
     }
 
     public Connection getConnection() {
-        return connection;
+        return this.connection;
     }
     
     

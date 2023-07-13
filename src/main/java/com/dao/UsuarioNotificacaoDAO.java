@@ -21,8 +21,9 @@ public class UsuarioNotificacaoDAO implements DAO<UsuarioNotificacao>{
     private Statement statement;
     private ResultSet resultSet;
     
-    public UsuarioNotificacaoDAO(Connection conn){
-        this.conn = conn;
+    public UsuarioNotificacaoDAO(){
+        SQLite sqlite = SQLite.getInstance();
+        this.conn = sqlite.getConnection();
         try{
             statement = conn.createStatement();
         }catch(Exception e){
@@ -96,12 +97,16 @@ public class UsuarioNotificacaoDAO implements DAO<UsuarioNotificacao>{
         try{
             statement = conn.createStatement();
             resultSet = statement.executeQuery(sql);
-            usrNot = new UsuarioNotificacao(
-                    resultSet.getInt("USR_NOT_COD"),
-                    resultSet.getInt("USR_COD"),
-                    resultSet.getInt("NOT_COD"),
-                    resultSet.getBoolean("WAS_READ"));
-            usrNots.add(usrNot);
+            while(resultSet.next()){
+                usrNot = new UsuarioNotificacao(
+                        resultSet.getInt("USR_NOT_COD"),
+                        resultSet.getInt("USR_COD"),
+                        resultSet.getInt("NOT_COD"),
+                        resultSet.getBoolean("WAS_READ"));
+                usrNots.add(usrNot);
+                System.out.println(usrNot);
+            }
+            
         }catch(SQLException e){
             e.printStackTrace();
         }

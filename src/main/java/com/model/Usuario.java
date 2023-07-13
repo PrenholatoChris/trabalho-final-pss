@@ -67,6 +67,6 @@ public class Usuario {
         return String.format("USR_COD=%s NOME=%s SENHA=%s isAdmin=%b",this.getUsrCod(), this.getNome(), this.getUsrCod(), this.getSenha(), this.getIsAdmin());
     }
     
-    
+
     
 }

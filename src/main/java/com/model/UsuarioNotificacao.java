@@ -15,6 +15,7 @@ public class UsuarioNotificacao {
     private Boolean wasRead;
     
     public UsuarioNotificacao(Integer usrNotCod,Integer usrCod, Integer notCod, Boolean wasRead){
+        this.usrNotCod = usrNotCod;
         this.usrCod = usrCod;
         this.notCod = notCod;
         this.wasRead = wasRead;

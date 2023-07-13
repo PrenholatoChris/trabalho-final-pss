@@ -20,8 +20,9 @@ public class NotificacaoDAO implements DAO<Notificacao>{
     private Statement statement;
     private ResultSet resultSet;
     
-    public NotificacaoDAO(Connection conn){
-        this.conn = conn;
+    public NotificacaoDAO(){
+        SQLite sqlite = SQLite.getInstance();
+        this.conn = sqlite.getConnection();
         try{
             statement = conn.createStatement();
         }catch(Exception e){

@@ -24,22 +24,20 @@ public class TrabalhoFinal {
 
     public static void main(String[] args) {
         
-        SQLite sqlite = new SQLite("./banco.db");
-        sqlite.conectar();
+        SQLite sqlite = SQLite.getInstance();
+//        sqlite.conectar();
         
         new TelaPrincipalPresenter();
         
 //         
-//        UsuarioDAO usuarioDAO = new UsuarioDAO(sqlite.getConnection());
+//        UsuarioDAO usuarioDAO = new UsuarioDAO();
 //        usuarioDAO.deletarTabelaUsuario();
 //        usuarioDAO.criarTabelaUsuario();
-//        usuarioDAO.insert(new Usuario("Affonso", "965"));
-//        usuarioDAO.insert(new Usuario("Vanderson", "543"));
-//        
+
 //        List<Usuario> usuarios = usuarioDAO.findAll();
 //        for (Usuario usuario : usuarios) {
 //            System.out.println(usuario);
-//        }
+//        } System.out.println();
 //
 //        sqlite.desconectar();
 //        String teste = usuarioDAO.findById(1).toString();
@@ -47,20 +45,20 @@ public class TrabalhoFinal {
 //        UsuarioNotificacaoDAO usuarioNotificacoesDAO;
 //        
 //        sqlite.conectar();
-//        NotificacaoDAO notificacaoDAO = new NotificacaoDAO(sqlite.getConnection());
+//        NotificacaoDAO notificacaoDAO = new NotificacaoDAO();
 //        notificacaoDAO.criarTabelaNotificao();
 //        Notificacao not1 = new Notificacao("Segunda Notificacao", "ESTE EH UM TESTE, MUITO CUIDADO COM ISSO");;;;
 //        notificacaoDAO.insert(not1);
 //        List<Notificacao> notificacoes = notificacaoDAO.findAll();
 //        for(Notificacao notificacao : notificacoes){
 //            System.out.println(notificacao);
-//        }
+//        }System.out.println();
 //        sqlite.desconectar();
 //        
 //        
 //        
 //        sqlite.conectar();
-//        UsuarioNotificacaoDAO usrNotDAO = new UsuarioNotificacaoDAO(sqlite.getConnection());
+//        UsuarioNotificacaoDAO usrNotDAO = new UsuarioNotificacaoDAO();
 //        usrNotDAO.deletarTabelaNotificacao();
 //        usrNotDAO.criarTabelaUsuarioNotificacao();
 //        UsuarioNotificacao usrNot1 = new UsuarioNotificacao(3, 2);
@@ -77,7 +75,7 @@ public class TrabalhoFinal {
 //        for(UsuarioNotificacao usrNot : notsDeUsuarios){
 //            System.out.println(usrNot);
 //        }
-        sqlite.desconectar();
+//        sqlite.desconectar();
         
     }
 }
