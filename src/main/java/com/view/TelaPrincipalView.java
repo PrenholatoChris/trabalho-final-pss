@@ -15,13 +15,14 @@ import javax.swing.JPanel;
  */
 public class TelaPrincipalView {
     private JPanel painelConteudo;
+    private JDesktopPane desktop;
     
     public JPanel getPainelConteudo(){
         return painelConteudo;
     }
     
     public TelaPrincipalView(){
-        JDesktopPane desktop = new JDesktopPane();
+        desktop = new JDesktopPane();
         desktop.setLayout(new BorderLayout(0, 10));
         
         JFrame frame = new JFrame();
@@ -35,5 +36,9 @@ public class TelaPrincipalView {
         desktop.add(painelConteudo, BorderLayout.CENTER);
         
         frame.setVisible(true);
+    }
+    
+    public JDesktopPane getDesktopPane(){
+        return desktop;
     }
 }

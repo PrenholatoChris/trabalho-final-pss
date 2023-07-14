@@ -4,6 +4,8 @@
  */
 package com.model;
 
+import com.dao.UsuarioNotificacaoDAO;
+
 /**
  *
  * @author chris
@@ -13,6 +15,8 @@ public class UsuarioNotificacao {
     private Integer usrCod;
     private Integer notCod;
     private Boolean wasRead;
+    
+    private static final UsuarioNotificacaoDAO unDAO = new UsuarioNotificacaoDAO();
     
     public UsuarioNotificacao(Integer usrNotCod,Integer usrCod, Integer notCod, Boolean wasRead){
         this.usrNotCod = usrNotCod;
@@ -49,4 +53,15 @@ public class UsuarioNotificacao {
         return String.format("USR_NOT_COD=%d USR_COD=%d possui a NOT_COD=%d que %s", usrNotCod,usrCod, notCod, lido);
     }
     
+    public static void criar(UsuarioNotificacao uN){
+        unDAO.insert(uN);
+    }
+    
+    public static void deletar(UsuarioNotificacao uN){
+        unDAO.remove(uN.getUsrNotCod());
+    }
+    
+    public void update(){
+        unDAO.update(this);
+    }
 }

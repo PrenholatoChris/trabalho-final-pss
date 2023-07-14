@@ -22,4 +22,8 @@ public class ListaUsuariosPresenter {
     public ListaUsuariosPresenter(){
         view = new ListaUsuariosView();
     }
+    
+    public ListaUsuariosView getView(){
+        return view;
+    }
 }

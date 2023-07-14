@@ -4,6 +4,9 @@
  */
 package com.model;
 
+import com.dao.UsuarioDAO;
+import java.util.List;
+
 /**
  *
  * @author chris
@@ -13,6 +16,7 @@ public class Usuario {
     private String nome;
     private String senha;
     private Boolean isAdmin;
+    private static final UsuarioDAO uDAO = new UsuarioDAO();
 
     public Usuario(String nome, String senha){
         this.nome = nome;
@@ -61,12 +65,38 @@ public class Usuario {
     public void setIsAdmin(Boolean isAdmin) {
         this.isAdmin = isAdmin;
     }
+    
+    public void setUserAsAdmin(Usuario outroUsuario) {
+        if(this.isAdmin){
+            outroUsuario.setIsAdmin(true);
+        }else{
+            throw new IllegalAccessError("Nao possui a permissao para tornar usuários em Administradores");
+        }
+    }
 
     @Override
     public String toString() {
         return String.format("USR_COD=%s NOME=%s SENHA=%s isAdmin=%b",this.getUsrCod(), this.getNome(), this.getUsrCod(), this.getSenha(), this.getIsAdmin());
     }
     
-
+    public static void criar(Usuario u){
+        uDAO.insert(u);
+    }
+    
+    public static void remover(Usuario u){
+        uDAO.remove(u.getUsrCod());
+    }
+    
+    public void update(){
+        uDAO.update(this);
+    }
+    
+    public List<Notificacao> getNotifications(){
+        return uDAO.getNotifications(this.usrCod);
+    }
+    
+    public static Usuario getUser(Integer usrCod){
+        return uDAO.findById(usrCod);        
+    }
     
 }

@@ -5,14 +5,14 @@
 package com.dao;
 
 import com.model.Usuario;
+import com.model.Notificacao;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
 import java.util.List;
-
-
 
 /**
  *
@@ -24,59 +24,55 @@ public class UsuarioDAO implements DAO<Usuario> {
     private Statement statement;
     private ResultSet resultSet;
     
-    public UsuarioDAO(){
+    public UsuarioDAO() {
         SQLite sqlite = SQLite.getInstance();
         this.conn = sqlite.getConnection();
-        try{
+        try {
             this.statement = conn.createStatement();
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
     
     @Override
-    public Usuario findById(Integer usr_cod){
+    public Usuario findById(Integer usr_cod) {
         Usuario usuario;
-        try{
+        try {
             String sql = "SELECT * FROM USUARIOS WHERE USUARIOS.USR_COD = " + usr_cod;
             resultSet = statement.executeQuery(sql);
-            usuario = new Usuario(resultSet.getInt("USR_COD"),resultSet.getString("NOME"),resultSet.getString("SENHA"),resultSet.getBoolean("IS_ADMIN"));
+            usuario = new Usuario(resultSet.getInt("USR_COD"), resultSet.getString("NOME"), resultSet.getString("SENHA"), resultSet.getBoolean("IS_ADMIN"));
             return usuario;
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return new Usuario(null,null);
+        return new Usuario(null, null);
     }
     
     @Override
-    public List<Usuario> findAll(){
+    public List<Usuario> findAll() {
         List<Usuario> usuarios = new ArrayList<>();
-        try{
+        try {
             String sql = "SELECT * FROM USUARIOS";
             resultSet = statement.executeQuery(sql);
-            while(resultSet.next()){
+            while (resultSet.next()) {
                 Boolean isAdmin = resultSet.getBoolean("IS_ADMIN");
-                usuarios.add(  
-                    new Usuario( resultSet.getInt("USR_COD"),
-                            resultSet.getString("NOME"),
-                            resultSet.getString("SENHA"),
-                            isAdmin));
+                usuarios.add(
+                        new Usuario(resultSet.getInt("USR_COD"),
+                                resultSet.getString("NOME"),
+                                resultSet.getString("SENHA"),
+                                isAdmin));
             }
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return usuarios;
     }
     
-    
     @Override
-    public void update(Usuario usuario){
-        String sql = "UPDATE USUARIOS SET NOME = "+ usuario.getNome() 
-                +", SENHA =" + usuario.getSenha()
-                +"WHERE USR_COD =" + usuario.getUsrCod();
+    public void update(Usuario usuario) {
+        String sql = "UPDATE USUARIOS SET NOME = " + usuario.getNome()
+                + ", SENHA =" + usuario.getSenha()
+                + "WHERE USR_COD =" + usuario.getUsrCod();
         execute(sql);
     }
     
@@ -85,11 +81,29 @@ public class UsuarioDAO implements DAO<Usuario> {
         String sql = "DELETE FROM USUARIOS WHERE USUARIOS.USR_COD = " + id;
         execute(sql);
     }
-
+    
     @Override
     public void insert(Usuario usuario) {
-        String sql = "INSERT INTO USUARIOS ( NOME, SENHA) VALUES  ('" +usuario.getNome() + "','" +usuario.getSenha()+"')";
-        execute(sql);        
+        String sql = "INSERT INTO USUARIOS ( NOME, SENHA) VALUES  ('" + usuario.getNome() + "','" + usuario.getSenha() + "')";
+        execute(sql);
+    }
+    
+    public List<Notificacao> getNotifications(Integer usr_cod) {
+        List<Notificacao> notificacoes = new ArrayList<>();
+        String query = String.format("SELECT NOTIFICACOES.*\n"
+                + "FROM USUARIO_NOTIFICACOES,\n"
+                + "     NOTIFICACOES\n"
+                + "WHERE USUARIO_NOTIFICACOES.NOT_COD = NOTIFICACOES.NOT_COD\n"
+                + "  AND USUARIO_NOTIFICACOES = %d ", usr_cod);
+        try {
+            resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                notificacoes.add(new Notificacao(resultSet.getInt("NOT_COD"), resultSet.getString("TITULO"), resultSet.getString("MENSAGEM"), resultSet.getBoolean("WAS_READ")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return notificacoes;
     }
     
     public void criarTabelaUsuario() {
@@ -98,22 +112,21 @@ public class UsuarioDAO implements DAO<Usuario> {
                 + ", NOME VARCHAR(20)"
                 + ", SENHA VARCHAR(20)"
                 + ", IS_ADMIN INTEGER)";
-       execute(sql);
+        execute(sql);
     }
     
-    public void deletarTabelaUsuario(){
+    public void deletarTabelaUsuario() {
         String sql = "DROP TABLE USUARIOS";
         execute(sql);
     }
     
-    private void execute(String sql){
-        try{
+    private void execute(String sql) {
+        try {
             statement.execute(sql);
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 
     /*
     public static String getUsuarios() throws Exception {
@@ -141,7 +154,5 @@ public class UsuarioDAO implements DAO<Usuario> {
     }
 
 
-*/
-    
-    
+     */
 }

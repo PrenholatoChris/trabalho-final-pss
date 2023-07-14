@@ -4,6 +4,10 @@
  */
 package com.model;
 
+import com.dao.NotificacaoDAO;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author chris
@@ -12,10 +16,14 @@ public class Notificacao {
     private Integer notCod;
     private String titulo;
     private String mensagem;
+    private Boolean wasRead;
+    
+    private static final NotificacaoDAO nDAO = new NotificacaoDAO();
 
     public Notificacao(String titulo, String mensagem){
         this.titulo = titulo;
         this.mensagem = mensagem;
+        this.wasRead = false;
     }
     
     public Notificacao(Integer notCod, String titulo, String mensagem){
@@ -24,10 +32,21 @@ public class Notificacao {
         this.mensagem = mensagem;
     }
     
+    public Notificacao(Integer notCod, String titulo, String mensagem, Boolean wasRead){
+        this.notCod = notCod;
+        this.titulo = titulo;
+        this.mensagem = mensagem;
+        this.wasRead = wasRead;
+    }
+    
     public String getMensagem() {
         return mensagem;
     }
 
+    public Boolean getWasRead() {
+        return wasRead;
+    }
+    
     public Integer getNotCod() {
         return notCod;
     }
@@ -43,12 +62,27 @@ public class Notificacao {
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
-
+            
     @Override
     public String toString() {
         return ("NOT_COD=" + this.getNotCod() + " TITULO="+ this.getTitulo()+ " MENSAGEM="+this.getMensagem()+".");
     }
  
+    public static void criar(Notificacao n){
+        nDAO.insert(n);
+    }
     
+    public static void deletar(Notificacao n){
+        nDAO.remove(n.getNotCod());
+    }
     
+    public void update(){
+         nDAO.update(this);
+    }
+    
+    public static List<Notificacao> getAll(){
+        return nDAO.findAll();
+    }
+    
+
 }
