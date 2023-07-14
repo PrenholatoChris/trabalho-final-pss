@@ -33,6 +33,7 @@ public class ListaNotificacoesPresenter {
         this.view = new ListaNotificacoesView();
         view.setVisible(true);
 
+        atualizar();
     }
 
     public ListaNotificacoesView getView(){
@@ -45,14 +46,23 @@ public class ListaNotificacoesPresenter {
         List<Notificacao> notificacoes  = usuarioLogado.getNotifications();
         String[] columns = {"msgCod", "Titulo", "Mensagem", "Lida"};
         Object[][] data = new Object[notificacoes.size()][4];
-        for(int i = 0; i< notificacoes.size(); i++){
-           data[i][0] = notificacoes.get(i).getNotCod();
+        Integer totalNotificacoes = notificacoes.size();
+        Integer qtdNotificacoesNaoLidas = 0;
+        for(int i = 0; i< totalNotificacoes; i++){
+            Boolean wasRead =notificacoes.get(i).getWasRead();
+            if(!wasRead){
+                qtdNotificacoesNaoLidas++;
+            }
+            data[i][0] = notificacoes.get(i).getNotCod();
            data[i][1] = notificacoes.get(i).getTitulo();
            data[i][2] = notificacoes.get(i).getMensagem();
-           data[i][3] = notificacoes.get(i).getWasRead();
+           data[i][3] = wasRead;
         }
         model = new DefaultTableModel(data, columns);
         tabela.setModel(model);
+        
+        view.getNotCaixaField().setText(totalNotificacoes+" notificações na caixa");
+        view.getNaoLidasField().setText(qtdNotificacoesNaoLidas+" notificações não lidas");
     }
     
     
