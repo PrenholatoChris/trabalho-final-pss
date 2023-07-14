@@ -36,7 +36,7 @@ public class AutenticarUsuarioCommand extends GerenteUsuariosCommand {
     @Override
     public void executar(){
         for(Usuario usuario : usuarios){
-            if(usuario.getNome() == nome && usuario.getSenha() == senha){
+            if(usuario.getNome().compareTo(nome) == 0 && usuario.getSenha().compareTo(senha) == 0){
                 usuarioEncontrado = usuario;
                 return;
             }

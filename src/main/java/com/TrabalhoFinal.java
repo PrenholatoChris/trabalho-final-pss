@@ -27,6 +27,9 @@ public class TrabalhoFinal {
         SQLite sqlite = SQLite.getInstance();
 //        sqlite.conectar();
         
+        /*for(Usuario usuario : new UsuarioDAO().findAll()){
+            System.out.println(usuario);
+        }*/
         new TelaPrincipalPresenter();
         
 //         

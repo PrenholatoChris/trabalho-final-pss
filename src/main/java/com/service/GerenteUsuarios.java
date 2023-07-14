@@ -13,6 +13,7 @@ import com.command.gerente_usuarios.AdicionarUsuarioCommand;
 import com.dao.UsuarioDAO;
 import com.model.Usuario;
 import com.dto.UsuarioBuscaDTO;
+import com.service.observer.IUsuariosObserver;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -35,7 +36,7 @@ public class GerenteUsuarios {
     }
     
     private GerenteUsuarios(){
-        UsuarioDAO dao = null;
+        UsuarioDAO dao = new UsuarioDAO();
         /*dao = new UsuarioDAO(); <- É necessário alguma maneira de instanciar um DAO sem precisar injetar a conexão nele. Somente as DAO e classes relacionadas deveriam se 
         preocupar com a conexão com o banco, não as models ou services.*/
         usuarios = dao.findAll();

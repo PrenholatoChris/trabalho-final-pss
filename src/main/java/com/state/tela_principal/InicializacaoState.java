@@ -103,11 +103,11 @@ public class InicializacaoState extends TelaPrincipalState{
     }
     
     private void confirmarLogin(){
-        /*Usuario usuarioEncontrado = GerenteUsuarios.getInstance().autenticarUsuario(nomeTextField.getText(), senhaTextField.getText());*/
-        Usuario usuarioEncontrado = null;
+        Usuario usuarioEncontrado = GerenteUsuarios.getInstance().autenticarUsuario(nomeTextField.getText(), senhaTextField.getText());
         if(usuarioEncontrado == null){
             exibirAvisoFalhaLogin();
         }else{
+            System.out.println("Checagem!!!");
             GerenteSessao.getInstance().setUsuarioLogado(usuarioEncontrado);
         }
     }
