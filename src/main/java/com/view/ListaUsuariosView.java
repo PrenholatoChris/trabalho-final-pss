@@ -10,4 +10,7 @@ package com.view;
  */
 public class ListaUsuariosView {
     
+    public ListaUsuariosView(){
+        
+    }
 }
