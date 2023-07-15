@@ -36,16 +36,19 @@ public class UsuarioDAO implements DAO<Usuario> {
     
     @Override
     public Usuario findById(Integer usr_cod) {
-        Usuario usuario;
+        Usuario usuario = null;
         try {
             String sql = "SELECT * FROM USUARIOS WHERE USUARIOS.USR_COD = " + usr_cod;
             resultSet = statement.executeQuery(sql);
-            usuario = new Usuario(resultSet.getInt("USR_COD"), resultSet.getString("NOME"), resultSet.getString("SENHA"), resultSet.getBoolean("IS_ADMIN"));
-            return usuario;
+            usuario = new Usuario(resultSet.getInt("USR_COD"),
+                    resultSet.getString("NOME"),
+                    resultSet.getString("SENHA"),
+                    resultSet.getBoolean("IS_ADMIN"),
+                    resultSet.getBoolean("IS_AUTORIZADO"));
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new Usuario(null, null);
+        return usuario;
     }
     
     @Override
@@ -56,11 +59,12 @@ public class UsuarioDAO implements DAO<Usuario> {
             resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
                 Boolean isAdmin = resultSet.getBoolean("IS_ADMIN");
+                Boolean isAutorizado = resultSet.getBoolean("IS_AUTORIZADO");
                 usuarios.add(
                         new Usuario(resultSet.getInt("USR_COD"),
                                 resultSet.getString("NOME"),
                                 resultSet.getString("SENHA"),
-                                isAdmin));
+                                isAdmin,isAutorizado));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -70,9 +74,7 @@ public class UsuarioDAO implements DAO<Usuario> {
     
     @Override
     public void update(Usuario usuario) {
-        String sql = "UPDATE USUARIOS SET NOME = " + usuario.getNome()
-                + ", SENHA =" + usuario.getSenha()
-                + "WHERE USR_COD =" + usuario.getUsrCod();
+        String sql = String.format("UPDATE USUARIOS SET NOME = '%s', SENHA = '%s', IS_ADMIN = %d WHERE USUARIOS.USR_COD = '%d'",usuario.getNome(), usuario.getSenha(), (usuario.getIsAdmin()?1:0), usuario.getUsrCod());
         execute(sql);
     }
     
@@ -84,34 +86,18 @@ public class UsuarioDAO implements DAO<Usuario> {
     
     @Override
     public void insert(Usuario usuario) {
-        String sql = "INSERT INTO USUARIOS ( NOME, SENHA) VALUES  ('" + usuario.getNome() + "','" + usuario.getSenha() + "')";
+        String sql = String.format("INSERT INTO USUARIOS ( NOME, SENHA, IS_ADMIN, IS_AUTORIZADO) VALUES  ('%s', '%s', %d, %d)",usuario.getNome(), usuario.getSenha(), (usuario.getIsAdmin()?1:0), (usuario.getIsAutorizado()?1:0));
         execute(sql);
     }
     
-    public List<Notificacao> getNotifications(Integer usr_cod) {
-        List<Notificacao> notificacoes = new ArrayList<>();
-        String query = String.format("SELECT NOTIFICACOES.*\n"
-                + "FROM USUARIO_NOTIFICACOES,\n"
-                + "     NOTIFICACOES\n"
-                + "WHERE USUARIO_NOTIFICACOES.NOT_COD = NOTIFICACOES.NOT_COD\n"
-                + "  AND USUARIO_NOTIFICACOES = %d ", usr_cod);
-        try {
-            resultSet = statement.executeQuery(query);
-            while (resultSet.next()) {
-                notificacoes.add(new Notificacao(resultSet.getInt("NOT_COD"), resultSet.getString("TITULO"), resultSet.getString("MENSAGEM"), resultSet.getBoolean("WAS_READ")));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return notificacoes;
-    }
     
     public void criarTabelaUsuario() {
         String sql = "CREATE TABLE  IF NOT EXISTS USUARIOS"
                 + "( USR_COD INTEGER PRIMARY KEY AUTOINCREMENT"
                 + ", NOME VARCHAR(20)"
                 + ", SENHA VARCHAR(20)"
-                + ", IS_ADMIN INTEGER)";
+                + ", IS_ADMIN INTEGER"
+                + ", IS_AUTORIZADO INTEGER)";
         execute(sql);
     }
     

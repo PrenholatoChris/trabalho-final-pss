@@ -56,14 +56,15 @@ public class UsuarioNotificacaoDAO implements DAO<UsuarioNotificacao>{
     
     @Override
     public void update(UsuarioNotificacao usrNot){
-        String sql = String.format("UPDATE USUARIOS_NOTIFICACOES "
-                + "SET NOT_COD = %d"
-                + ", USR_COD = %d"
-                + ", WAS_READ = %d"
-                + "WHERE USR_NOT_COD = %d",
+        String sql = String.format("""
+                                   UPDATE USUARIOS_NOTIFICACOES
+                                    SET NOT_COD = %d,
+                                            USR_COD = %d,
+                                            WAS_READ = %d
+                                            WHERE USUARIOS_NOTIFICACOES.USR_NOT_COD = %d """,
                 usrNot.getNotCod(),
                 usrNot.getUsrCod(),
-                0,
+                (usrNot.getWasRead()?1:0),
                 usrNot.getUsrNotCod());
         execute(sql);
     }
@@ -112,6 +113,36 @@ public class UsuarioNotificacaoDAO implements DAO<UsuarioNotificacao>{
         }
         
         return usrNots;
+    }
+    
+    public List<UsuarioNotificacao> getNotificationsOfUser(Integer usr_cod){
+    List<UsuarioNotificacao> usrNotificacoes = new ArrayList<>();
+        String query = String.format("""
+                                     SELECT USUARIOS_NOTIFICACOES.USR_NOT_COD,
+                                                    USUARIOS_NOTIFICACOES.USR_COD,
+                                                    USUARIOS_NOTIFICACOES.WAS_READ,
+                                                    NOTIFICACOES.*
+                                     FROM USUARIOS_NOTIFICACOES, NOTIFICACOES
+                                     WHERE USUARIOS_NOTIFICACOES.NOT_COD = NOTIFICACOES.NOT_COD
+                                      AND USUARIOS_NOTIFICACOES.USR_COD = %d """, usr_cod);
+        try {
+            resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                usrNotificacoes.add(
+                        new UsuarioNotificacao(
+                                resultSet.getInt("USR_NOT_COD"),
+                                resultSet.getInt("USR_COD"),
+                                resultSet.getInt("NOT_COD"),
+                                resultSet.getBoolean("WAS_READ"),
+                                resultSet.getString("MENSAGEM"),
+                                resultSet.getString("TITULO")
+                        )
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return usrNotificacoes;
     }
     
     public void  criarTabelaUsuarioNotificacao(){

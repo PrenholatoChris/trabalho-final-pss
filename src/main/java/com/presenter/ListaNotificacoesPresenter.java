@@ -9,7 +9,11 @@ import com.view.ListaNotificacoesView;
 
 import com.model.Notificacao;
 import com.model.Usuario;
+import com.model.UsuarioNotificacao;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -22,6 +26,7 @@ public class ListaNotificacoesPresenter {
     private ListaNotificacoesState estado;
     private ListaNotificacoesView view;
     Usuario usuarioLogado;
+    List<UsuarioNotificacao>  usrNots;
 
     public void setEstado(ListaNotificacoesState estado) {
         this.estado = estado;
@@ -35,26 +40,42 @@ public class ListaNotificacoesPresenter {
         view.setVisible(true);
         painelConteudo.add(view);
         
-
+        
+        configurarTela();
+    }
+    
+    private void configurarTela(){
+        JTable tabela = view.getNotificationTable();
+        tabela.addMouseListener(
+                new MouseAdapter() {
+                    public void mouseClicked(MouseEvent e){
+                        Integer index = tabela.getSelectedRow();
+                        UsuarioNotificacao uNot = usrNots.get(index);
+                        JOptionPane.showMessageDialog(view, uNot.getMensagem(),uNot.getTitulo(), 1);
+                        uNot.setWasRead(true);
+                        uNot.update();
+                    }
+                });
+        
         atualizar();
     }
     
     private void atualizar(){
         JTable tabela = view.getNotificationTable();
         DefaultTableModel model;//= (DefaultTableModel) tabela.getModel();
-        List<Notificacao> notificacoes  = usuarioLogado.getNotifications();
+        usrNots = UsuarioNotificacao.getNotificationsOfUser(usuarioLogado.getUsrCod());
         String[] columns = {"msgCod", "Titulo", "Mensagem", "Lida"};
-        Object[][] data = new Object[notificacoes.size()][4];
-        Integer totalNotificacoes = notificacoes.size();
+        Object[][] data = new Object[usrNots.size()][4];
+        Integer totalNotificacoes = usrNots.size();
         Integer qtdNotificacoesNaoLidas = 0;
         for(int i = 0; i< totalNotificacoes; i++){
-            Boolean wasRead =notificacoes.get(i).getWasRead();
+            Boolean wasRead =usrNots.get(i).getWasRead();
             if(!wasRead){
                 qtdNotificacoesNaoLidas++;
             }
-            data[i][0] = notificacoes.get(i).getNotCod();
-           data[i][1] = notificacoes.get(i).getTitulo();
-           data[i][2] = notificacoes.get(i).getMensagem();
+            data[i][0] = usrNots.get(i).getNotCod();
+           data[i][1] = usrNots.get(i).getTitulo();
+           data[i][2] = usrNots.get(i).getMensagem();
            data[i][3] = wasRead;
         }
         model = new DefaultTableModel(data, columns);

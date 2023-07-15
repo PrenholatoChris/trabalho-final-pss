@@ -16,30 +16,42 @@ public class Usuario {
     private String nome;
     private String senha;
     private Boolean isAdmin;
+    private Boolean isAutorizado;
     private static final UsuarioDAO uDAO = new UsuarioDAO();
 
-    public Usuario(String nome, String senha){
+    public Usuario(String nome, String senha, Boolean isAutorizado){
         this.nome = nome;
         this.senha = senha;
         this.isAdmin = false;
+        this.isAutorizado = isAutorizado;
     }
     
     //Construtor do select do banco
-    public Usuario(Integer usrCod, String nome, String senha, Boolean isAdmin){
+    public Usuario(Integer usrCod, String nome, String senha, Boolean isAdmin, Boolean isAutorizado){
         this.usrCod = usrCod;
         this.nome = nome;
         this.senha = senha;
         this.isAdmin = isAdmin;
+        this.isAutorizado = isAutorizado;
     }
     
-    public Usuario(String nome, String senha, Boolean isAdmin){
+    public Usuario(String nome, String senha, Boolean isAdmin, Boolean isAutorizado){
         this.nome = nome;
         this.senha = senha;
         this.isAdmin = isAdmin;
+        this.isAutorizado = isAutorizado;
     }
     
     public Boolean getIsAdmin() {
         return isAdmin;
+    }
+
+    public Boolean getIsAutorizado() {
+        return isAutorizado;
+    }
+
+    public void setIsAutorizado(Boolean isAutorizado) {
+        this.isAutorizado = isAutorizado;
     }
     
     public String getNome() {
@@ -76,7 +88,7 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return String.format("USR_COD=%s NOME=%s SENHA=%s isAdmin=%b",this.getUsrCod(), this.getNome(), this.getUsrCod(), this.getSenha(), this.getIsAdmin());
+        return String.format("USR_COD=%s NOME=%s SENHA=%s isAdmin=%b",this.getUsrCod(), this.getNome(), this.getSenha(), this.getIsAdmin());
     }
     
     public static void criar(Usuario u){
@@ -91,10 +103,7 @@ public class Usuario {
         uDAO.update(this);
     }
     
-    public List<Notificacao> getNotifications(){
-        return uDAO.getNotifications(this.usrCod);
-    }
-    
+
     public static Usuario getUser(Integer usrCod){
         return uDAO.findById(usrCod);        
     }
