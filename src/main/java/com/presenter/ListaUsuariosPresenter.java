@@ -6,6 +6,7 @@ package com.presenter;
 
 import com.state.lista_usuarios.ListaUsuariosState;
 import com.view.ListaUsuariosView;
+import javax.swing.JPanel;
 
 /**
  *
@@ -19,11 +20,8 @@ public class ListaUsuariosPresenter {
         this.estado = estado;
     }
     
-    public ListaUsuariosPresenter(){
+    public ListaUsuariosPresenter(JPanel painelConteudo){
         view = new ListaUsuariosView();
-    }
-    
-    public ListaUsuariosView getView(){
-        return view;
+        painelConteudo.add(view);
     }
 }

@@ -10,6 +10,7 @@ import com.view.ListaNotificacoesView;
 import com.model.Notificacao;
 import com.model.Usuario;
 import java.util.List;
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -26,18 +27,16 @@ public class ListaNotificacoesPresenter {
         this.estado = estado;
     }
     
-    public ListaNotificacoesPresenter(){
+    public ListaNotificacoesPresenter(JPanel painelConteudo){
         //Supondo que o usuario Cod 1 esta logado
         usuarioLogado = Usuario.getUser(1);
         
         this.view = new ListaNotificacoesView();
         view.setVisible(true);
+        painelConteudo.add(view);
+        
 
         atualizar();
-    }
-
-    public ListaNotificacoesView getView(){
-        return view;
     }
     
     private void atualizar(){

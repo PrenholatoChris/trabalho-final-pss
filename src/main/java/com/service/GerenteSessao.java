@@ -5,6 +5,9 @@
 package com.service;
 
 import com.model.Usuario;
+import com.service.observer.ISessaoObserver;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -12,9 +15,12 @@ import com.model.Usuario;
  */
 public class GerenteSessao {
     private static GerenteSessao instance = null;
+    private List<ISessaoObserver> observers;
     private Usuario usuarioLogado;
     
-    private GerenteSessao(){}
+    private GerenteSessao(){
+        observers = new ArrayList<>();
+    }
     
     static public GerenteSessao getInstance(){
         if(instance == null)
@@ -28,5 +34,20 @@ public class GerenteSessao {
 
     public void setUsuarioLogado(Usuario usuarioLogado) {
         this.usuarioLogado = usuarioLogado;
+        notificarObservers();
+    }
+    
+    public void addObserver(ISessaoObserver observer){
+        observers.add(observer);
+    }
+    
+    public void removeObserver(ISessaoObserver observer){
+        observers.remove(observer);
+    }
+    
+    private void notificarObservers(){
+        for(ISessaoObserver observer : observers){
+            observer.atualizarSessao(usuarioLogado);
+        }
     }
 }

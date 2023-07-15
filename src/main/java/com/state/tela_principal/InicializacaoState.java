@@ -28,8 +28,17 @@ import javax.swing.SwingUtilities;
  * @author Vanderson
  */
 public class InicializacaoState extends TelaPrincipalState{
+    private JInternalFrame telaLogin;
     private JTextField nomeTextField;
     private JTextField senhaTextField;
+    
+    public String getNomeTextFieldText(){
+        return nomeTextField.getText();
+    }
+    
+    public String getSenhaTextFieldText(){
+        return senhaTextField.getText();
+    }
     
     public InicializacaoState(TelaPrincipalPresenter telaPrincipal, JPanel painelConteudo){
         super.telaPrincipal = telaPrincipal;
@@ -41,15 +50,17 @@ public class InicializacaoState extends TelaPrincipalState{
     @Override
     public void entrarAdministrativo(){
         telaPrincipal.setEstado(new LoginAdministrativoState(telaPrincipal, painelConteudo));
+        painelConteudo.remove(telaLogin);
     }
     
     @Override
     public void entrarNormal(){
         telaPrincipal.setEstado(new LoginNormalState(telaPrincipal, painelConteudo));
+        painelConteudo.remove(telaLogin);
     }
     
     private void exibirTelaLogin(){
-        JInternalFrame telaLogin = new JInternalFrame();
+        telaLogin = new JInternalFrame();
         telaLogin.setTitle("Faça seu login.");
         
         JPanel painelPrincipal = new JPanel();
@@ -89,7 +100,7 @@ public class InicializacaoState extends TelaPrincipalState{
         botaoConfirmar.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                confirmarLogin();
+                executar();
             }
         });
         painelBotoes.add(botaoConfirmar);
@@ -102,17 +113,7 @@ public class InicializacaoState extends TelaPrincipalState{
         painelConteudo.add(telaLogin);
     }
     
-    private void confirmarLogin(){
-        Usuario usuarioEncontrado = GerenteUsuarios.getInstance().autenticarUsuario(nomeTextField.getText(), senhaTextField.getText());
-        if(usuarioEncontrado == null){
-            exibirAvisoFalhaLogin();
-        }else{
-            System.out.println("Checagem!!!");
-            GerenteSessao.getInstance().setUsuarioLogado(usuarioEncontrado);
-        }
-    }
-    
-    private void exibirAvisoFalhaLogin(){
+    public void exibirAvisoFalhaLogin(){
         JDialog errorDialog = new JDialog(SwingUtilities.getWindowAncestor(painelConteudo), "Problema de login");
         errorDialog.setSize(200, 100);
 

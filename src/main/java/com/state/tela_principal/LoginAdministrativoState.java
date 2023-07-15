@@ -13,9 +13,14 @@ import javax.swing.JPanel;
  */
 public class LoginAdministrativoState extends TelaPrincipalState{
     
+    public JPanel getPainelConteudo(){
+        return super.painelConteudo;
+    }
+    
     public LoginAdministrativoState(TelaPrincipalPresenter telaPrincipal, JPanel painelConteudo){
         super.telaPrincipal = telaPrincipal;
         super.painelConteudo = painelConteudo;
+        executar();
     }
     
     @Override

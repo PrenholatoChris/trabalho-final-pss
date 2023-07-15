@@ -13,6 +13,7 @@ import com.model.Notificacao;
 import com.model.Usuario;
 import com.model.UsuarioNotificacao;
 import com.presenter.TelaPrincipalPresenter;
+import com.service.GerenteSessao;
 import java.util.List;
 
 
@@ -27,16 +28,19 @@ public class TrabalhoFinal {
         SQLite sqlite = SQLite.getInstance();
 //        sqlite.conectar();
         
-        /*for(Usuario usuario : new UsuarioDAO().findAll()){
+        for(Usuario usuario : new UsuarioDAO().findAll()){
             System.out.println(usuario);
-        }*/
-        new TelaPrincipalPresenter();
+        }
+        GerenteSessao.getInstance().addObserver(new TelaPrincipalPresenter());
+        
+        //Código de Inicialização Rápida. Remover para parar de pular a tela de login.
+        GerenteSessao.getInstance().setUsuarioLogado(new UsuarioDAO().findById(2));
         
 //         
 //        UsuarioDAO usuarioDAO = new UsuarioDAO();
 //        usuarioDAO.deletarTabelaUsuario();
 //        usuarioDAO.criarTabelaUsuario();
-
+//
 //        List<Usuario> usuarios = usuarioDAO.findAll();
 //        for (Usuario usuario : usuarios) {
 //            System.out.println(usuario);

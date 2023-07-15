@@ -32,10 +32,10 @@ public class Usuario {
         this.isAdmin = isAdmin;
     }
     
-    public Usuario(String nome, String senha, Integer isAdmin){
+    public Usuario(String nome, String senha, Boolean isAdmin){
         this.nome = nome;
         this.senha = senha;
-        this.isAdmin = false;
+        this.isAdmin = isAdmin;
     }
     
     public Boolean getIsAdmin() {

@@ -4,6 +4,9 @@
  */
 package com.command.tela_principal;
 
+import com.model.Usuario;
+import com.service.GerenteSessao;
+import com.service.GerenteUsuarios;
 import com.state.tela_principal.InicializacaoState;
 
 /**
@@ -19,6 +22,11 @@ public class InicializarCommand implements ITelaPrincipalCommand {
     
     @Override
     public void executar(){
-        
+        Usuario usuarioEncontrado = GerenteUsuarios.getInstance().autenticarUsuario(estado.getNomeTextFieldText(), estado.getSenhaTextFieldText());
+        if(usuarioEncontrado == null){
+            estado.exibirAvisoFalhaLogin();
+        }else{
+            GerenteSessao.getInstance().setUsuarioLogado(usuarioEncontrado);
+        }
     }
 }
