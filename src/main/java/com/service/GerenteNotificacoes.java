@@ -6,7 +6,6 @@ package com.service;
 
 import com.command.gerente_notificacoes.BuscarNotificacoesCommand;
 import com.command.gerente_notificacoes.GerenteNotificacoesCommand;
-import com.dto.NotificacaoBuscaDTO;
 import com.model.Notificacao;
 import java.util.HashMap;
 import java.util.List;
@@ -26,12 +25,12 @@ public class GerenteNotificacoes {
         comandos.put("Buscar", new BuscarNotificacoesCommand(notificacoesUsuarioLogado));
     }
     
-    public List<Notificacao> buscarNotificacoes(NotificacaoBuscaDTO buscaDto){
-        BuscarNotificacoesCommand comando = (BuscarNotificacoesCommand)comandos.get("Buscar");
-        comando.setBuscaDto(buscaDto);
-        comando.executar();
-        return comando.getNotificacoesEncontradas();
-    }
+//    public List<Notificacao> buscarNotificacoes(NotificacaoBuscaDTO buscaDto){
+//        BuscarNotificacoesCommand comando = (BuscarNotificacoesCommand)comandos.get("Buscar");
+//        comando.setBuscaDto(buscaDto);
+//        comando.executar();
+//        return comando.getNotificacoesEncontradas();
+//    }
     
     private void carregarNotificacoes(){
         /*VANDERSON: Aqui seria necessário um método que buscasse todas as notificações de um usuário. Provavelmente vai ser necessário uma classe Facade ou Repository para

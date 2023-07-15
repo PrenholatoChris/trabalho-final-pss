@@ -19,13 +19,30 @@ import javax.swing.border.EmptyBorder;
  * @author Vanderson
  */
 public class ListaUsuariosView2 {
+    JButton enviarNotificacaoBotao;
+    JPanel painelBotoes;
+    JPanel painelConteudo;
     JTable tabelaDados;
+
+    public JButton getEnviarNotificacaoBotao(){
+        return enviarNotificacaoBotao;
+    }
+    
+    public JPanel getPainelBotoes() {
+        return painelBotoes;
+    }
+
+    public JPanel getPainelConteudo() {
+        return painelConteudo;
+    }
     
     public JTable getTabelaDados(){
         return tabelaDados;
     }
     
     public ListaUsuariosView2(JPanel painelConteudo){
+        this.painelConteudo = painelConteudo;
+        
         JInternalFrame tela = new JInternalFrame();
         tela.setTitle("Lista de Usuários");
         
@@ -44,16 +61,13 @@ public class ListaUsuariosView2 {
         tabelaDados.setFillsViewportHeight(false);
         painelTabela.add(new JScrollPane(tabelaDados));
         
-        JPanel painelBotoes = new JPanel();
-        painelBotoes.setBorder(new EmptyBorder(0, 15, 10, 0));
+        painelBotoes = new JPanel();
+        painelBotoes.setBorder(new EmptyBorder(0, 15, 10, 15));
         painelBotoes.setLayout(new GridLayout(0, 3, 10, 10));
         painelPrincipal.add(painelBotoes);
         
-        JButton visualizarBotao = new JButton("Visualizar");
-        painelBotoes.add(visualizarBotao);
-        
-        JButton eidtarBotao = new JButton("Editar");
-        painelBotoes.add(eidtarBotao);
+        enviarNotificacaoBotao = new JButton("Enviar Notificação");
+        painelBotoes.add(enviarNotificacaoBotao);
         
         tela.pack();
         tela.show();

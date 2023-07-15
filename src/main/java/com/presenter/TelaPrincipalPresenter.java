@@ -35,8 +35,11 @@ public class TelaPrincipalPresenter implements ISessaoObserver{
     @Override
     public void atualizarSessao(Usuario usuarioLogado){
         if(usuarioLogado != null){
-            //VANDERSON: Tem algum problema com o findAll do UsuarioDAO. Ele retorna todos os usuários com um estado de Administrador falso.
-            estado.entrarAdministrativo();
+            if(usuarioLogado.getIsAdmin()){
+                estado.entrarAdministrativo();
+            }else{
+                estado.entrarNormal();
+            }
         }else{
             estado.sair();
         }

@@ -4,7 +4,6 @@
  */
 package com.command.gerente_usuarios;
 
-import com.dto.UsuarioBuscaDTO;
 import com.model.Usuario;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,14 +14,14 @@ import java.util.List;
  */
 public class BuscarUsuariosCommand extends GerenteUsuariosCommand{
     private List<Usuario> usuariosEncontrados;
-    private UsuarioBuscaDTO buscaDto;
+    private List<Integer> codsBusca;
 
     public List<Usuario> getUsuariosEncontrados() {
         return usuariosEncontrados;
     }
 
-    public void setBuscaDto(UsuarioBuscaDTO buscaDto) {
-        this.buscaDto = buscaDto;
+    public void setCodsBusca(List<Integer> codsBusca) {
+        this.codsBusca = codsBusca;
     }
     
     public BuscarUsuariosCommand(List<Usuario> usuarios){
@@ -34,19 +33,17 @@ public class BuscarUsuariosCommand extends GerenteUsuariosCommand{
     public void executar(){
         usuariosEncontrados.clear();
         for(Usuario usuario : usuarios){
-            if(verificarUsuarioValido(usuario)){
-                usuariosEncontrados.add(usuario);
+            Integer codigoUsado = null;
+            for(int codigo : codsBusca){
+                if(usuario.getUsrCod() == codigo){
+                    usuariosEncontrados.add(usuario);
+                    codigoUsado = codigo;
+                    break;
+                }
+            }
+            if(codigoUsado != null){
+                codsBusca.remove(codigoUsado);
             }
         }
-    }
-    
-    private boolean verificarUsuarioValido(Usuario usuario){
-        if(buscaDto != null){
-            if(buscaDto.getNome() != null && usuario.getNome().compareTo(buscaDto.getNome()) != 0){
-                return false;
-            }
-            return buscaDto.getIsAdmin() == null || usuario.getIsAdmin().equals(buscaDto.getIsAdmin());
-        }else
-            return true;
     }
 }

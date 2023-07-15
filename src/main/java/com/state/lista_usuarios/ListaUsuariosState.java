@@ -6,6 +6,7 @@ package com.state.lista_usuarios;
 
 import com.command.factory.lista_usuarios.ListaUsuariosCommandFactory;
 import com.presenter.ListaUsuariosPresenter;
+import com.view.ListaUsuariosView2;
 
 /**
  *
@@ -13,13 +14,14 @@ import com.presenter.ListaUsuariosPresenter;
  */
 public abstract class ListaUsuariosState {
     protected ListaUsuariosPresenter listaUsuarios;
+    protected ListaUsuariosView2 view;
     
     public void autorizar() throws UnsupportedOperationException{
         throw new UnsupportedOperationException("Não é possível passar do estado " + getEstado() + " para o estado Autorizacao.");
     }
     
-    public void buscar() throws UnsupportedOperationException{
-        throw new UnsupportedOperationException("Não é possível passar do estado " + getEstado() + " para o estado Busca.");
+    public void retornar() throws UnsupportedOperationException{
+        throw new UnsupportedOperationException("Não é possível passar do estado " + getEstado() + " para o estado Base.");
     }
     
     public void enviarNotificacao() throws UnsupportedOperationException{
@@ -28,6 +30,13 @@ public abstract class ListaUsuariosState {
     
     public void executar(){
         ListaUsuariosCommandFactory.getFactory(this).criar().executar();
+    }
+    
+    protected void removerBotoesEstado(){
+        while(view.getPainelBotoes().getComponentCount() > 1){
+            int index = view.getPainelBotoes().getComponentCount() - 1;
+            view.getPainelBotoes().remove(index);
+        }
     }
     
     private String getEstado(){

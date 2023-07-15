@@ -6,13 +6,20 @@ package com.presenter;
 
 import com.model.Usuario;
 import com.service.observer.IUsuariosObserver;
+import com.state.lista_usuarios.AutorizacaoState;
+import com.state.lista_usuarios.BaseState;
+import com.state.lista_usuarios.EnvioNotificacaoState;
 import com.state.lista_usuarios.ListaUsuariosState;
 import com.view.ListaUsuariosView;
 import com.view.ListaUsuariosView2;
 import com.view.ModeloVisualTabela;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.JPanel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -28,6 +35,23 @@ public class ListaUsuariosPresenter implements IUsuariosObserver {
     
     public ListaUsuariosPresenter(JPanel painelConteudo){
         view = new ListaUsuariosView2(painelConteudo);
+        estado = new BaseState(this, view);
+        
+        view.getEnviarNotificacaoBotao().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                setStateToEnvioNotificacao();
+            }
+        });
+        
+        view.getTabelaDados().getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            @Override
+            public void valueChanged(ListSelectionEvent e){
+                if(e.getValueIsAdjusting()){
+                    updateTableRowSelection();
+                }
+            }
+        });
     }
     
     @Override
@@ -36,9 +60,23 @@ public class ListaUsuariosPresenter implements IUsuariosObserver {
         modeloTabela.clearRows();
         for(Usuario usuario : usuarios){
             List<Object> entrada = Arrays.asList(
-                usuario.getUsrCod(), usuario.getNome(), usuario.getIsAdmin(), true
+                usuario.getUsrCod(), usuario.getNome(), usuario.getIsAdmin(), usuario.getIsAutorizado()
             );
             modeloTabela.addRow(entrada);
+        }
+    }
+    
+    private void setStateToEnvioNotificacao(){
+        if(view.getTabelaDados().getSelectedRowCount() > 0){
+            estado = new EnvioNotificacaoState(this, view);
+        }
+    }
+    
+    private void updateTableRowSelection(){
+        if(view.getTabelaDados().getSelectedRowCount() < 2 && estado.getClass() != BaseState.class){
+            estado = new BaseState(this, view);
+        }else if(view.getTabelaDados().getSelectedRowCount() >= 2 && estado.getClass() != AutorizacaoState.class){
+            estado = new AutorizacaoState(this, view);
         }
     }
 }

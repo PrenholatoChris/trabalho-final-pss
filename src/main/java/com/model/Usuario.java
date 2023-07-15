@@ -88,7 +88,8 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return String.format("USR_COD=%s NOME=%s SENHA=%s isAdmin=%b",this.getUsrCod(), this.getNome(), this.getSenha(), this.getIsAdmin());
+        return String.format("USR_COD=%s NOME=%s SENHA=%s isAdmin=%b isAutorizado=%s",this.getUsrCod(), this.getNome(), this.getSenha(), this.getIsAdmin(),
+                this.getIsAutorizado());
     }
     
     public static void criar(Usuario u){

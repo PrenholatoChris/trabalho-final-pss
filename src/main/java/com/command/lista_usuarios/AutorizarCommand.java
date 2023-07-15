@@ -4,7 +4,12 @@
  */
 package com.command.lista_usuarios;
 
+import com.dao.UsuarioDAO;
+import com.model.Usuario;
+import com.service.GerenteUsuarios;
 import com.state.lista_usuarios.AutorizacaoState;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -19,6 +24,14 @@ public class AutorizarCommand implements IListaUsuariosCommand{
     
     @Override
     public void executar(){
-        
+        List<Integer> codsUsuarioBuscar = new ArrayList<>();
+        for(int rowIndex : estado.getView().getTabelaDados().getSelectedRows()){
+            codsUsuarioBuscar.add((Integer)estado.getView().getTabelaDados().getModel().getValueAt(rowIndex, 0));
+        }
+        List<Usuario> usuariosParaAutorizar = GerenteUsuarios.getInstance().buscarUsuarios(codsUsuarioBuscar);
+        for(Usuario usuario : usuariosParaAutorizar){
+            usuario.setIsAutorizado(Boolean.TRUE);
+            new UsuarioDAO().update(usuario);
+        }
     }
 }

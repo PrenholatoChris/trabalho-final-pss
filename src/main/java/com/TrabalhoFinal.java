@@ -36,7 +36,7 @@ public class TrabalhoFinal {
         GerenteSessao.getInstance().addObserver(new TelaPrincipalPresenter());
 //        
 //        //Código de Inicialização Rápida. Remover para parar de pular a tela de login.
-        GerenteSessao.getInstance().setUsuarioLogado(new UsuarioDAO().findById(2));
+        GerenteSessao.getInstance().setUsuarioLogado(new UsuarioDAO().findById(1));
         
 //         
 //        UsuarioDAO usuarioDAO = new UsuarioDAO();

@@ -14,38 +14,39 @@ import javax.swing.JButton;
  *
  * @author Vanderson
  */
-public class AutorizacaoState extends ListaUsuariosState {
+public class BaseState extends ListaUsuariosState {
     
-    public ListaUsuariosView2 getView(){
-        return view;
-    }
-    
-    public AutorizacaoState(ListaUsuariosPresenter listaUsuarios, ListaUsuariosView2 view){
+    public BaseState(ListaUsuariosPresenter listaUsuarios, ListaUsuariosView2 view){
         super.listaUsuarios = listaUsuarios;
         super.view = view;
         
         removerBotoesEstado();
         
-        JButton autenticarBotao = new JButton("Autenticar Todos");
+        JButton autenticarBotao = new JButton("Autenticar");
         autenticarBotao.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                executar();
+                if(view.getTabelaDados().getSelectedRowCount() > 0){
+                    AutorizacaoState autorizacaoState = new AutorizacaoState(listaUsuarios, view);
+                    listaUsuarios.setEstado(autorizacaoState);
+                    autorizacaoState.executar();
+                }
             }
         });
         view.getPainelBotoes().add(autenticarBotao);
+        
+        JButton visualizarBotao = new JButton("Visualizar");
+        view.getPainelBotoes().add(visualizarBotao);
+        
+        JButton editarBotao = new JButton("Editar");
+        view.getPainelBotoes().add(editarBotao);
         
         view.getPainelBotoes().revalidate();
         view.getPainelBotoes().repaint();
     }
     
     @Override
-    public void retornar(){
-        listaUsuarios.setEstado(new BaseState(listaUsuarios, view));
-    }
-    
-    @Override
-    public void enviarNotificacao(){
-        listaUsuarios.setEstado(new EnvioNotificacaoState(listaUsuarios, view));
+    public void autorizar(){
+        listaUsuarios.setEstado(new AutorizacaoState(listaUsuarios, view));
     }
 }
