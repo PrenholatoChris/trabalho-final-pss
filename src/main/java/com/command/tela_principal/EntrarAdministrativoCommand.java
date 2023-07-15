@@ -6,6 +6,7 @@ package com.command.tela_principal;
 
 import com.presenter.ListaNotificacoesPresenter;
 import com.presenter.ListaUsuariosPresenter;
+import com.service.GerenteUsuarios;
 import com.state.tela_principal.LoginAdministrativoState;
 
 /**
@@ -22,6 +23,6 @@ public class EntrarAdministrativoCommand implements ITelaPrincipalCommand {
     @Override
     public final void executar(){
         new ListaNotificacoesPresenter(estado.getPainelConteudo());
-        //new ListaUsuariosPresenter(estado.getPainelConteudo());
+        GerenteUsuarios.getInstance().addObserver(new ListaUsuariosPresenter(estado.getPainelConteudo()));
     }
 }

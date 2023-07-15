@@ -14,7 +14,7 @@ import com.dao.UsuarioDAO;
 import com.model.Usuario;
 import com.dto.UsuarioBuscaDTO;
 import com.service.observer.IUsuariosObserver;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,11 +46,12 @@ public class GerenteUsuarios {
         comandos.put("Autenticar", new AutenticarUsuarioCommand(usuarios));
         comandos.put("Buscar", new BuscarUsuariosCommand(usuarios));
         comandos.put("Remover", new RemoverUsuarioCommand(usuarios, dao));
-        observers = Arrays.asList();
+        observers = new ArrayList<>();
     }
     
     public void addObserver(IUsuariosObserver observer){
         observers.add(observer);
+        observer.atualizarUsuarios(usuarios);
     }
     
     public void removeObserver(IUsuariosObserver observer){
