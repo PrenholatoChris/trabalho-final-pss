@@ -4,7 +4,6 @@
  */
 package com.command.gerente_notificacoes;
 
-import com.dto.NotificacaoBuscaDTO;
 import com.model.Notificacao;
 import java.util.List;
 
@@ -13,11 +12,11 @@ import java.util.List;
  * @author Vanderson
  */
 public class BuscarNotificacoesCommand extends GerenteNotificacoesCommand{
-    private NotificacaoBuscaDTO buscaDto;
+    private List<Integer> codsBusca;
     private List<Notificacao> notificacoesEncontradas;
 
-    public void setBuscaDto(NotificacaoBuscaDTO buscaDto) {
-        this.buscaDto = buscaDto;
+    public void setCodsBusca(List<Integer> codsBusca) {
+        this.codsBusca = codsBusca;
     }
 
     public List<Notificacao> getNotificacoesEncontradas() {
@@ -30,21 +29,18 @@ public class BuscarNotificacoesCommand extends GerenteNotificacoesCommand{
     
     @Override
     public void executar(){
-        notificacoesEncontradas.clear();
         for(Notificacao notificacao : notificacoesUsuarioLogado){
-            if(verificarNotificacaoValida(notificacao)){
-                notificacoesEncontradas.add(notificacao);
+            Integer codigoUsado = null;
+            for(int codigo : codsBusca){
+                if(notificacao.getNotCod() == codigo){
+                    notificacoesEncontradas.add(notificacao);
+                    codigoUsado = codigo;
+                    break;
+                }
+            }
+            if(codigoUsado != null){
+                codsBusca.remove(codigoUsado);
             }
         }
-    }
-    
-    private boolean verificarNotificacaoValida(Notificacao notificacao){
-        if(buscaDto != null){
-            if(buscaDto.getTitulo() != null && notificacao.getTitulo().compareTo(buscaDto.getTitulo()) != 0){
-                return false;
-            }
-            return buscaDto.getMensagem() == null || notificacao.getMensagem().compareTo(buscaDto.getMensagem()) == 0;
-        }else
-            return true;
     }
 }
