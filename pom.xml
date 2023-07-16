@@ -13,9 +13,18 @@
     </properties>
     <dependencies>
         <dependency>
-          <groupId>org.xerial</groupId>
-          <artifactId>sqlite-jdbc</artifactId>
-          <version>3.42.0.0</version>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>3.42.0.0</version>
         </dependency>
-</dependencies>
+        
+        <dependency>
+            <groupId>com</groupId>
+            <artifactId>SistemaLogger</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>C:\Users\chris\.m2\repository\com\SistemaLogger\1.0-SNAPSHOT\SistemaLogger-1.0-SNAPSHOT.jar</systemPath>
+        </dependency>
+        
+    </dependencies>
 </project>

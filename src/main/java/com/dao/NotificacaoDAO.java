@@ -45,6 +45,21 @@ public class NotificacaoDAO implements DAO<Notificacao>{
     }
     
     @Override
+    public Integer getLastRegister() {
+        Integer lastRegister = null;
+        String sql = String.format("""
+                                   SELECT MAX(NOTIFICACOES.NOT_COD) 
+                                   FROM NOTIFICACOES""");
+        try{
+            resultSet = statement.executeQuery(sql);
+            lastRegister = resultSet.getInt(1);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return lastRegister;
+    }
+    
+    @Override
     public void insert(Notificacao not){
         String sql = "INSERT INTO NOTIFICACOES ( TITULO, MENSAGEM) VALUES  ('" + not.getTitulo() + "','" + not.getMensagem()+"')";
         execute(sql);

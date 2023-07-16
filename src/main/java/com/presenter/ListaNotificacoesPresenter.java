@@ -45,6 +45,8 @@ public class ListaNotificacoesPresenter {
     }
     
     private void configurarTela(){
+        //Passar de parametro para ca
+        usrNots = UsuarioNotificacao.getNotificationsOfUser(usuarioLogado.getUsrCod());
         JTable tabela = view.getNotificationTable();
         tabela.addMouseListener(
                 new MouseAdapter() {
@@ -63,7 +65,6 @@ public class ListaNotificacoesPresenter {
     private void atualizar(){
         JTable tabela = view.getNotificationTable();
         DefaultTableModel model;//= (DefaultTableModel) tabela.getModel();
-        usrNots = UsuarioNotificacao.getNotificationsOfUser(usuarioLogado.getUsrCod());
         String[] columns = {"msgCod", "Titulo", "Mensagem", "Lida"};
         Object[][] data = new Object[usrNots.size()][4];
         Integer totalNotificacoes = usrNots.size();

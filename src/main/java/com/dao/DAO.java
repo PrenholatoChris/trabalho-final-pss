@@ -22,4 +22,6 @@ public interface DAO<T> {
     void remove(Integer id);
     
     void insert(T t);
+    
+    Integer getLastRegister();
 }

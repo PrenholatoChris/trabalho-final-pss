@@ -68,8 +68,9 @@ public class Notificacao {
         return ("NOT_COD=" + this.getNotCod() + " TITULO="+ this.getTitulo()+ " MENSAGEM="+this.getMensagem()+".");
     }
  
-    public static void criar(Notificacao n){
+    public static Integer criar(Notificacao n){
         nDAO.insert(n);
+        return nDAO.getLastRegister();
     }
     
     public static void deletar(Notificacao n){

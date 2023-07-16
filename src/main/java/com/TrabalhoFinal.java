@@ -13,7 +13,12 @@ import com.model.Notificacao;
 import com.model.Usuario;
 import com.model.UsuarioNotificacao;
 import com.presenter.TelaPrincipalPresenter;
+//import com.pss.senha.validacao.ValidadorSenha;
 import com.service.GerenteSessao;
+import com.service.ListaUsuarioRepository;
+import com.sistemalogger.SistemaLogger;
+import com.sistemalogger.TipoOperacao;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -24,14 +29,34 @@ import java.util.List;
 public class TrabalhoFinal {
 
     public static void main(String[] args) {
-        
-        SQLite sqlite = SQLite.getInstance();
-//        sqlite.conectar();
-        
-
-//        for(Usuario usuario : new UsuarioDAO().findAll()){
-//            System.out.println(usuario);
+//        ValidadorSenha validador = new ValidadorSenha();
+//    List<String> lista = validador.validar("alisuhdlashd");
+//        for (String string : lista) {
+//            System.out.println(string);
 //        }
+
+    Usuario u1 = Usuario.getUser(1);
+    Usuario u2 = Usuario.getUser(2);
+    Usuario u3 = Usuario.getUser(3);
+    
+    List<Usuario> usuarios = new ArrayList<>();
+    usuarios.add(u1);
+    usuarios.add(u2);
+    usuarios.add(u3);
+    
+    Notificacao not = new Notificacao("3 primeiros usuarios", "Os 3 primeiros usuarios tomarao ban ano que vem!");
+    new ListaUsuarioRepository(usuarios, not);
+
+//    SistemaLogger.makeInfoLog(TipoOperacao.ALTERANDO_SENHA,"Christian", "admin");
+
+        
+//        SQLite sqlite = SQLite.getInstance();
+
+//        Usuario u1 = new Usuario("Ronaldo","asdasdiavbu35", false);
+//        u1.validarSenha(u1.getSenha());
+
+
+
         
         GerenteSessao.getInstance().addObserver(new TelaPrincipalPresenter());
 //        

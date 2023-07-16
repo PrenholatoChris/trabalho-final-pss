@@ -8,12 +8,12 @@ package com.view;
  *
  * @author chris
  */
-public class CriarUsuarioNotificacaoView extends javax.swing.JInternalFrame {
+public class CriarUsuarioNotificacaoViewOBSOLETO extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form CriarUsuarioNotificacaoView
      */
-    public CriarUsuarioNotificacaoView() {
+    public CriarUsuarioNotificacaoViewOBSOLETO() {
 //        initComponents();
     }
 

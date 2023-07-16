@@ -6,7 +6,8 @@ package com.model;
 
 import com.dao.UsuarioDAO;
 import java.util.List;
-
+//import com.pss.senha.validacao.ValidadorSenha;
+import java.util.ArrayList;
 /**
  *
  * @author chris
@@ -18,6 +19,7 @@ public class Usuario {
     private Boolean isAdmin;
     private Boolean isAutorizado;
     private static final UsuarioDAO uDAO = new UsuarioDAO();
+//    ValidadorSenha validadorSenha = new ValidadorSenha();
 
     public Usuario(String nome, String senha, Boolean isAutorizado){
         this.nome = nome;
@@ -25,7 +27,6 @@ public class Usuario {
         this.isAdmin = false;
         this.isAutorizado = isAutorizado;
     }
-    
     //Construtor do select do banco
     public Usuario(Integer usrCod, String nome, String senha, Boolean isAdmin, Boolean isAutorizado){
         this.usrCod = usrCod;
@@ -41,6 +42,15 @@ public class Usuario {
         this.isAdmin = isAdmin;
         this.isAutorizado = isAutorizado;
     }
+    
+//    public boolean validarSenha(String senha){
+//        List<String> validacoes = new ArrayList<>();
+//        validacoes = this.validadorSenha.validar(senha);
+//        for (String validacao : validacoes) {
+//            System.out.println(validacao);
+//        }
+//        return true;
+//    }
     
     public Boolean getIsAdmin() {
         return isAdmin;
@@ -92,8 +102,9 @@ public class Usuario {
                 this.getIsAutorizado());
     }
     
-    public static void criar(Usuario u){
+    public static Integer criar(Usuario u){
         uDAO.insert(u);
+        return uDAO.getLastRegister();
     }
     
     public static void remover(Usuario u){
@@ -104,7 +115,6 @@ public class Usuario {
         uDAO.update(this);
     }
     
-
     public static Usuario getUser(Integer usrCod){
         return uDAO.findById(usrCod);        
     }

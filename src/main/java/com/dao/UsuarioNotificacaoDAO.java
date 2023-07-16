@@ -48,6 +48,21 @@ public class UsuarioNotificacaoDAO implements DAO<UsuarioNotificacao>{
     }
     
     @Override
+    public Integer getLastRegister() {
+        Integer lastRegister = null;
+        String sql = String.format("""
+                                   SELECT MAX(USUARIOS_NOTIFICACOES.USR_COD)
+                                   FROM USUARIOS_NOTIFICACOES""");
+        try{
+            resultSet = statement.executeQuery(sql);
+            lastRegister = resultSet.getInt(1);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return lastRegister;
+    }
+    
+    @Override
     public void remove(Integer usrNotCod){
         String sql = String.format("DELETE FROM USUARIOS_NOTIFICACOES "
                 + "WHERE USR_NOT_COD = %d",usrNotCod);

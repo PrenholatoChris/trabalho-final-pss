@@ -50,6 +50,22 @@ public class UsuarioDAO implements DAO<Usuario> {
         }
         return usuario;
     }
+
+    @Override
+    public Integer getLastRegister() {
+        Integer lastRegister = null;
+        String sql = String.format("""
+                                   SELECT MAX(USUARIOS.USR_COD)
+                                   FROM USUARIOS""");
+        try{
+            resultSet = statement.executeQuery(sql);
+            lastRegister = resultSet.getInt(1);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return lastRegister;
+    }
+    
     
     @Override
     public List<Usuario> findAll() {
