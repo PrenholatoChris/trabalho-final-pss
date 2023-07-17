@@ -18,13 +18,13 @@
             <version>3.42.0.0</version>
         </dependency>
         
-        <dependency>
+        <!--<dependency>
             <groupId>com</groupId>
             <artifactId>SistemaLogger</artifactId>
             <version>1.0</version>
             <scope>system</scope>
             <systemPath>C:\Users\chris\.m2\repository\com\SistemaLogger\1.0-SNAPSHOT\SistemaLogger-1.0-SNAPSHOT.jar</systemPath>
-        </dependency>
+        </dependency>-->
         
     </dependencies>
 </project>

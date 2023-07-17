@@ -5,6 +5,8 @@
 package com.state.editor_usuario;
 
 import com.presenter.EditorUsuarioPresenter;
+import com.view.EditorUsuarioView;
+import javax.swing.JButton;
 
 /**
  *
@@ -12,7 +14,13 @@ import com.presenter.EditorUsuarioPresenter;
  */
 public class CadastroInicialState extends EditorUsuarioState{
     
-    public CadastroInicialState(EditorUsuarioPresenter editorUsuario){
+    public CadastroInicialState(EditorUsuarioPresenter editorUsuario, EditorUsuarioView view){
         super.editorUsuario = editorUsuario;
+        
+        JButton botaoConfirmar = new JButton("Confirmar");
+        view.getPainelBotoes().add(botaoConfirmar);
+        
+        JButton botaoCancelar = new JButton("Cancelar");
+        view.getPainelBotoes().add(botaoCancelar);
     }
 }

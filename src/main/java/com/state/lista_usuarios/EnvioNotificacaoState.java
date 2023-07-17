@@ -5,7 +5,7 @@
 package com.state.lista_usuarios;
 
 import com.presenter.ListaUsuariosPresenter;
-import com.view.ListaUsuariosView2;
+import com.view.ListaUsuariosView;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,7 +26,7 @@ import javax.swing.border.EmptyBorder;
  */
 public class EnvioNotificacaoState extends ListaUsuariosState {
     
-    public EnvioNotificacaoState(ListaUsuariosPresenter listaUsuarios, ListaUsuariosView2 view){
+    public EnvioNotificacaoState(ListaUsuariosPresenter listaUsuarios, ListaUsuariosView view){
         super.listaUsuarios = listaUsuarios;
         super.view = view;
         

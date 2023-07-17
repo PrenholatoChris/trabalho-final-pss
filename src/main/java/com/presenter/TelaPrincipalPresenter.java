@@ -30,6 +30,8 @@ public class TelaPrincipalPresenter implements ISessaoObserver{
         this.view = new TelaPrincipalView();
         this.estado = new InicializacaoState(this, view.getPainelConteudo());
 //        addViews();
+
+        new EditorUsuarioPresenter(view.getPainelConteudo());
     }
     
     @Override

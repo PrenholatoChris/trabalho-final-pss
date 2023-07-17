@@ -34,6 +34,10 @@ public class GerenteUsuarios {
         return instance;
     }
     
+    public int getQtdUsuarios(){
+        return usuarios.size();
+    }
+    
     private GerenteUsuarios(){
         UsuarioDAO dao = new UsuarioDAO();
         /*dao = new UsuarioDAO(); <- É necessário alguma maneira de instanciar um DAO sem precisar injetar a conexão nele. Somente as DAO e classes relacionadas deveriam se 

@@ -14,7 +14,6 @@ import com.presenter.EditorUsuarioPresenter;
  */
 public abstract class EditorUsuarioState {
     protected EditorUsuarioPresenter editorUsuario;
-    protected Usuario usuario;
     
     public void editar() throws UnsupportedOperationException{
         throw new UnsupportedOperationException("Não é possível passar do estado " + getEstado() + " para o estado Edição.");

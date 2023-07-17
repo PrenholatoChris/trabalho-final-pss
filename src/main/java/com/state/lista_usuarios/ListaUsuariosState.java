@@ -6,7 +6,7 @@ package com.state.lista_usuarios;
 
 import com.command.factory.lista_usuarios.ListaUsuariosCommandFactory;
 import com.presenter.ListaUsuariosPresenter;
-import com.view.ListaUsuariosView2;
+import com.view.ListaUsuariosView;
 
 /**
  *
@@ -14,7 +14,7 @@ import com.view.ListaUsuariosView2;
  */
 public abstract class ListaUsuariosState {
     protected ListaUsuariosPresenter listaUsuarios;
-    protected ListaUsuariosView2 view;
+    protected ListaUsuariosView view;
     
     public void autorizar() throws UnsupportedOperationException{
         throw new UnsupportedOperationException("Não é possível passar do estado " + getEstado() + " para o estado Autorizacao.");

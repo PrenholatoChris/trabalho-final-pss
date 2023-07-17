@@ -5,10 +5,11 @@
 package com.state.lista_usuarios;
 
 import com.presenter.ListaUsuariosPresenter;
-import com.view.ListaUsuariosView2;
+import com.view.ListaUsuariosView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JTable;
 
 /**
  *
@@ -16,11 +17,15 @@ import javax.swing.JButton;
  */
 public class AutorizacaoState extends ListaUsuariosState {
     
-    public ListaUsuariosView2 getView(){
-        return view;
+//    public ListaUsuariosView getView(){
+//        return view;
+//    }
+    
+    public JTable getTabelaDados(){
+        return view.getTabelaDados();
     }
     
-    public AutorizacaoState(ListaUsuariosPresenter listaUsuarios, ListaUsuariosView2 view){
+    public AutorizacaoState(ListaUsuariosPresenter listaUsuarios, ListaUsuariosView view){
         super.listaUsuarios = listaUsuarios;
         super.view = view;
         

@@ -12,12 +12,13 @@ import com.model.Notificacao;
 
 import com.model.Usuario;
 import com.model.UsuarioNotificacao;
+import com.presenter.EditorUsuarioPresenter;
 import com.presenter.TelaPrincipalPresenter;
 //import com.pss.senha.validacao.ValidadorSenha;
 import com.service.GerenteSessao;
 import com.service.ListaUsuarioRepository;
-import com.sistemalogger.SistemaLogger;
-import com.sistemalogger.TipoOperacao;
+//import com.sistemalogger.SistemaLogger;
+//import com.sistemalogger.TipoOperacao;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,17 +36,17 @@ public class TrabalhoFinal {
 //            System.out.println(string);
 //        }
 
-    Usuario u1 = Usuario.getUser(1);
-    Usuario u2 = Usuario.getUser(2);
-    Usuario u3 = Usuario.getUser(3);
-    
-    List<Usuario> usuarios = new ArrayList<>();
-    usuarios.add(u1);
-    usuarios.add(u2);
-    usuarios.add(u3);
-    
-    Notificacao not = new Notificacao("3 primeiros usuarios", "Os 3 primeiros usuarios tomarao ban ano que vem!");
-    new ListaUsuarioRepository(usuarios, not);
+//    Usuario u1 = Usuario.getUser(1);
+//    Usuario u2 = Usuario.getUser(2);
+//    Usuario u3 = Usuario.getUser(3);
+//    
+//    List<Usuario> usuarios = new ArrayList<>();
+//    usuarios.add(u1);
+//    usuarios.add(u2);
+//    usuarios.add(u3);
+//    
+//    Notificacao not = new Notificacao("3 primeiros usuarios", "Os 3 primeiros usuarios tomarao ban ano que vem!");
+//    new ListaUsuarioRepository(usuarios, not);
 
 //    SistemaLogger.makeInfoLog(TipoOperacao.ALTERANDO_SENHA,"Christian", "admin");
 

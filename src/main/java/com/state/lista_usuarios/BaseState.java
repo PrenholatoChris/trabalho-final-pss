@@ -5,7 +5,7 @@
 package com.state.lista_usuarios;
 
 import com.presenter.ListaUsuariosPresenter;
-import com.view.ListaUsuariosView2;
+import com.view.ListaUsuariosView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -16,7 +16,7 @@ import javax.swing.JButton;
  */
 public class BaseState extends ListaUsuariosState {
     
-    public BaseState(ListaUsuariosPresenter listaUsuarios, ListaUsuariosView2 view){
+    public BaseState(ListaUsuariosPresenter listaUsuarios, ListaUsuariosView view){
         super.listaUsuarios = listaUsuarios;
         super.view = view;
         
@@ -37,9 +37,6 @@ public class BaseState extends ListaUsuariosState {
         
         JButton visualizarBotao = new JButton("Visualizar");
         view.getPainelBotoes().add(visualizarBotao);
-        
-        JButton editarBotao = new JButton("Editar");
-        view.getPainelBotoes().add(editarBotao);
         
         view.getPainelBotoes().revalidate();
         view.getPainelBotoes().repaint();

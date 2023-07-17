@@ -25,8 +25,8 @@ public class AutorizarCommand implements IListaUsuariosCommand{
     @Override
     public void executar(){
         List<Integer> codsUsuarioBuscar = new ArrayList<>();
-        for(int rowIndex : estado.getView().getTabelaDados().getSelectedRows()){
-            codsUsuarioBuscar.add((Integer)estado.getView().getTabelaDados().getModel().getValueAt(rowIndex, 0));
+        for(int rowIndex : estado.getTabelaDados().getSelectedRows()){
+            codsUsuarioBuscar.add((Integer)estado.getTabelaDados().getModel().getValueAt(rowIndex, 0));
         }
         List<Usuario> usuariosParaAutorizar = GerenteUsuarios.getInstance().buscarUsuarios(codsUsuarioBuscar);
         for(Usuario usuario : usuariosParaAutorizar){

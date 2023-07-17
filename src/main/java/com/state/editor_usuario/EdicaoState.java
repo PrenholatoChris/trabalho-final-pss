@@ -4,6 +4,7 @@
  */
 package com.state.editor_usuario;
 
+import com.model.Usuario;
 import com.presenter.EditorUsuarioPresenter;
 
 /**
@@ -11,9 +12,11 @@ import com.presenter.EditorUsuarioPresenter;
  * @author Vanderson
  */
 public class EdicaoState extends EditorUsuarioState{
+    private Usuario usuarioEditado;
     
-    public EdicaoState(EditorUsuarioPresenter editorUsuario){
+    public EdicaoState(EditorUsuarioPresenter editorUsuario, Usuario usuarioVisualizado){
         super.editorUsuario = editorUsuario;
+        this.usuarioEditado = usuarioVisualizado;
     }
     
     @Override

@@ -11,7 +11,6 @@ import com.state.lista_usuarios.BaseState;
 import com.state.lista_usuarios.EnvioNotificacaoState;
 import com.state.lista_usuarios.ListaUsuariosState;
 import com.view.ListaUsuariosView;
-import com.view.ListaUsuariosView2;
 import com.view.ModeloVisualTabela;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,14 +26,14 @@ import javax.swing.event.ListSelectionListener;
  */
 public class ListaUsuariosPresenter implements IUsuariosObserver {
     private ListaUsuariosState estado;
-    private ListaUsuariosView2 view;
+    private ListaUsuariosView view;
     
     public void setEstado(ListaUsuariosState estado){
         this.estado = estado;
     }
     
     public ListaUsuariosPresenter(JPanel painelConteudo){
-        view = new ListaUsuariosView2(painelConteudo);
+        view = new ListaUsuariosView(painelConteudo);
         estado = new BaseState(this, view);
         
         view.getEnviarNotificacaoBotao().addActionListener(new ActionListener(){
