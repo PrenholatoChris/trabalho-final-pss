@@ -19,6 +19,7 @@ public class CadastrarGenericoCommandFactory extends EditorUsuarioCommandFactory
         this.estado = estado;
     }
     
+    @Override
     public IEditorUsuarioCommand criar(){
         return new CadastrarGenericoCommand(estado);
     }

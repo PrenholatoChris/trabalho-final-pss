@@ -4,16 +4,21 @@
  */
 package com.state.editor_usuario;
 
+import com.model.Usuario;
 import com.presenter.EditorUsuarioPresenter;
+import com.view.EditorUsuarioView;
 
 /**
  *
  * @author Vanderson
  */
 public class RemocaoState extends EditorUsuarioState{
+    private Usuario usuarioARemover;
     
-    public RemocaoState(EditorUsuarioPresenter editorUsuario){
+    public RemocaoState(EditorUsuarioPresenter editorUsuario, EditorUsuarioView view, Usuario usuarioARemover){
         super.editorUsuario = editorUsuario;
+        super.view = view;
+        this.usuarioARemover = usuarioARemover;
     }
     
     @Override

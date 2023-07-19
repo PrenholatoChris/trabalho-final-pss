@@ -9,7 +9,6 @@ import com.view.ListaUsuariosView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
-import javax.swing.JTable;
 
 /**
  *
@@ -21,9 +20,9 @@ public class AutorizacaoState extends ListaUsuariosState {
 //        return view;
 //    }
     
-    public JTable getTabelaDados(){
-        return view.getTabelaDados();
-    }
+//    public JTable getTabelaDados(){
+//        return view.getTabelaDados();
+//    }
     
     public AutorizacaoState(ListaUsuariosPresenter listaUsuarios, ListaUsuariosView view){
         super.listaUsuarios = listaUsuarios;

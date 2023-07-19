@@ -4,10 +4,14 @@
  */
 package com.state.lista_usuarios;
 
+import com.model.Usuario;
+import com.presenter.EditorUsuarioPresenter;
 import com.presenter.ListaUsuariosPresenter;
+import com.service.GerenteUsuarios;
 import com.view.ListaUsuariosView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 import javax.swing.JButton;
 
 /**
@@ -23,7 +27,7 @@ public class BaseState extends ListaUsuariosState {
         removerBotoesEstado();
         
         JButton autenticarBotao = new JButton("Autenticar");
-        autenticarBotao.addActionListener(new ActionListener(){
+        autenticarBotao.addActionListener(new ActionListener(){ // <- Esta porra não tá funcionando.
             @Override
             public void actionPerformed(ActionEvent e){
                 if(view.getTabelaDados().getSelectedRowCount() > 0){
@@ -36,6 +40,15 @@ public class BaseState extends ListaUsuariosState {
         view.getPainelBotoes().add(autenticarBotao);
         
         JButton visualizarBotao = new JButton("Visualizar");
+        visualizarBotao.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                if(view.getTabelaDados().getSelectedRowCount() == 1){
+                    Usuario usuarioSelecionado = GerenteUsuarios.getInstance().buscarUsuario(getCodUsuarioPorLinha(getIndicesLinhasUsuarioSelecionadas()[0]));
+                    new EditorUsuarioPresenter(view.getPainelConteudo(), usuarioSelecionado);
+                }
+            }
+        });
         view.getPainelBotoes().add(visualizarBotao);
         
         view.getPainelBotoes().revalidate();

@@ -18,15 +18,17 @@ import javax.swing.border.EmptyBorder;
  * @author Vanderson
  */
 public class EditorUsuarioView {
-    JPanel painelConteudo;
+    JInternalFrame tela;
     JPanel painelAuxiliar;
+    JPanel painelConteudo;
+    JPanel painelPrincipal;
     JPanel painelBotoes;
     JTextField nomeTextField;
     JTextField senhaTextField;
 
-    public JPanel getPainelConteudo() {
-        return painelConteudo;
-    }
+//    public JPanel getPainelConteudo() {
+//        return painelConteudo;
+//    }
 
     public JPanel getPainelAuxiliar() {
         return painelAuxiliar;
@@ -47,10 +49,10 @@ public class EditorUsuarioView {
     public EditorUsuarioView(JPanel painelConteudo){
         this.painelConteudo = painelConteudo;
         
-        JInternalFrame tela = new JInternalFrame();
+        tela = new JInternalFrame();
         tela.setTitle("Editor Usuários");
         
-        JPanel painelPrincipal = new JPanel();
+        painelPrincipal = new JPanel();
         painelPrincipal.setBorder(new EmptyBorder(10, 10, 10, 10));
         painelPrincipal.setLayout(new BoxLayout(painelPrincipal, BoxLayout.PAGE_AXIS));
         tela.add(painelPrincipal);
@@ -77,14 +79,27 @@ public class EditorUsuarioView {
         painelCampos.add(senhaTextField);
         
         painelAuxiliar = new JPanel();
+        painelAuxiliar.setBorder(new EmptyBorder(10, 5, 15, 5));
+        painelAuxiliar.setLayout(new GridLayout(0, 2, 10, 10));
         painelPrincipal.add(painelAuxiliar);
         
         painelBotoes = new JPanel();
-        painelBotoes.setLayout(new GridLayout(0, 2, 10, 20));
+        painelBotoes.setLayout(new GridLayout(0, 3, 10, 20));
         painelPrincipal.add(painelBotoes);
         
         tela.pack();
         tela.show();
         painelConteudo.add(tela);
+    }
+    
+    public void close(){
+        painelConteudo.remove(tela);
+        painelConteudo.revalidate();
+        painelConteudo.repaint();
+    }
+    
+    public void update(){
+        painelPrincipal.revalidate();
+        painelPrincipal.repaint();
     }
 }

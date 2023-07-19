@@ -36,6 +36,13 @@ public class ListaUsuariosPresenter implements IUsuariosObserver {
         view = new ListaUsuariosView(painelConteudo);
         estado = new BaseState(this, view);
         
+        view.getAdicionarUsuarioBotao().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                new EditorUsuarioPresenter(painelConteudo);
+            }
+        });
+        
         view.getEnviarNotificacaoBotao().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){

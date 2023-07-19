@@ -32,8 +32,16 @@ public abstract class ListaUsuariosState {
         ListaUsuariosCommandFactory.getFactory(this).criar().executar();
     }
     
+    public int[] getIndicesLinhasUsuarioSelecionadas(){
+        return view.getTabelaDados().getSelectedRows();
+    }
+    
+    public Integer getCodUsuarioPorLinha(int index){
+        return (Integer)view.getTabelaDados().getModel().getValueAt(index, 0);
+    }
+    
     protected void removerBotoesEstado(){
-        while(view.getPainelBotoes().getComponentCount() > 1){
+        while(view.getPainelBotoes().getComponentCount() > ListaUsuariosView.QTD_BOTOES_FIXOS){
             int index = view.getPainelBotoes().getComponentCount() - 1;
             view.getPainelBotoes().remove(index);
         }

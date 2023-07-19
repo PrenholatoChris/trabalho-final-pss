@@ -41,8 +41,11 @@ public class AtualizarUsuarioCommand extends GerenteUsuariosCommand{
                 case "senha":
                     usuarioAtualizacao.setSenha((String)novosDados.get(chave));
                     break;
-                case "ehAdmin":
+                case "ehAdministrador":
                     usuarioAtualizacao.setIsAdmin((Boolean)novosDados.get(chave));
+                    break;
+                case "ehAutorizado":
+                    usuarioAtualizacao.setIsAutorizado((Boolean)novosDados.get(chave));
                     break;
                 default:
                     System.out.println("Isto tem que lançar um erro no futuro.");

@@ -14,6 +14,7 @@ import com.dao.UsuarioDAO;
 import com.model.Usuario;
 import com.service.observer.IUsuariosObserver;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -72,6 +73,7 @@ public class GerenteUsuarios {
         AtualizarUsuarioCommand comando = (AtualizarUsuarioCommand)comandos.get("Atualizar");
         comando.setUsuarioAtualizacao(usuario);
         comando.setNovosDados(novosDados);
+        comando.executar();
         notificarObservers();
     }
     
@@ -81,6 +83,13 @@ public class GerenteUsuarios {
         comando.setSenha(senha);
         comando.executar();
         return comando.getUsuarioEncontrado();
+    }
+    
+    public Usuario buscarUsuario(Integer codBusca){
+        BuscarUsuariosCommand comando = (BuscarUsuariosCommand)comandos.get("Buscar");
+        comando.setCodsBusca(new ArrayList(Arrays.asList(codBusca)));
+        comando.executar();
+        return comando.getUsuariosEncontrados().get(0);
     }
     
     public List<Usuario> buscarUsuarios(List<Integer> codsBusca){

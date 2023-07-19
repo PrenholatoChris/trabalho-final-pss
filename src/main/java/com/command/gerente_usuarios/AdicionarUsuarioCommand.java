@@ -15,7 +15,7 @@ import java.util.List;
 public class AdicionarUsuarioCommand extends GerenteUsuariosCommand{
     private Usuario usuarioAdicao;
     private UsuarioDAO dao;
-
+    
     public void setUsuarioAdicao(Usuario usuarioAdicao) {
         this.usuarioAdicao = usuarioAdicao;
     }
@@ -29,5 +29,6 @@ public class AdicionarUsuarioCommand extends GerenteUsuariosCommand{
     public void executar(){
         usuarios.add(usuarioAdicao);
         dao.insert(usuarioAdicao);
+        usuarioAdicao.setUsrCod(dao.getLastRegister());
     }
 }

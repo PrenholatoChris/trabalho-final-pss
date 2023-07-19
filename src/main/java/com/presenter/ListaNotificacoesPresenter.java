@@ -10,6 +10,7 @@ import com.view.ListaNotificacoesView;
 import com.model.Notificacao;
 import com.model.Usuario;
 import com.model.UsuarioNotificacao;
+import com.service.GerenteSessao;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
@@ -25,7 +26,6 @@ import javax.swing.table.DefaultTableModel;
 public class ListaNotificacoesPresenter {
     private ListaNotificacoesState estado;
     private ListaNotificacoesView view;
-    Usuario usuarioLogado;
     List<UsuarioNotificacao>  usrNots;
 
     public void setEstado(ListaNotificacoesState estado) {
@@ -33,9 +33,6 @@ public class ListaNotificacoesPresenter {
     }
     
     public ListaNotificacoesPresenter(JPanel painelConteudo){
-        //Supondo que o usuario Cod 1 esta logado
-        usuarioLogado = Usuario.getUser(1);
-        
         this.view = new ListaNotificacoesView();
         view.setVisible(true);
         painelConteudo.add(view);
@@ -46,7 +43,7 @@ public class ListaNotificacoesPresenter {
     
     private void configurarTela(){
         //Passar de parametro para ca
-        usrNots = UsuarioNotificacao.getNotificationsOfUser(usuarioLogado.getUsrCod());
+        usrNots = UsuarioNotificacao.getNotificationsOfUser(GerenteSessao.getInstance().getUsuarioLogado().getUsrCod());
         JTable tabela = view.getNotificationTable();
         tabela.addMouseListener(
                 new MouseAdapter() {

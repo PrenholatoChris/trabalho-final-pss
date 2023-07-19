@@ -19,10 +19,17 @@ import javax.swing.border.EmptyBorder;
  * @author Vanderson
  */
 public class ListaUsuariosView {
-    JButton enviarNotificacaoBotao;
-    JPanel painelBotoes;
-    JPanel painelConteudo;
-    JTable tabelaDados;
+    public static final int QTD_BOTOES_FIXOS = 2;
+    
+    private JButton adicionarUsuarioBotao;
+    private JButton enviarNotificacaoBotao;
+    private JPanel painelBotoes;
+    private JPanel painelConteudo;
+    private JTable tabelaDados;
+
+    public JButton getAdicionarUsuarioBotao() {
+        return adicionarUsuarioBotao;
+    }
 
     public JButton getEnviarNotificacaoBotao(){
         return enviarNotificacaoBotao;
@@ -65,6 +72,9 @@ public class ListaUsuariosView {
         painelBotoes.setBorder(new EmptyBorder(0, 15, 10, 15));
         painelBotoes.setLayout(new GridLayout(0, 3, 10, 10));
         painelPrincipal.add(painelBotoes);
+        
+        adicionarUsuarioBotao = new JButton("Adicionar Usuário");
+        painelBotoes.add(adicionarUsuarioBotao);
         
         enviarNotificacaoBotao = new JButton("Enviar Notificação");
         painelBotoes.add(enviarNotificacaoBotao);

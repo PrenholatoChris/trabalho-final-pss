@@ -4,7 +4,10 @@
  */
 package com.command.editor_usuario;
 
+import com.service.GerenteUsuarios;
 import com.state.editor_usuario.EdicaoState;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -18,7 +21,13 @@ public class EditarCommand implements IEditorUsuarioCommand{
     }
     
     @Override
-    public void  executar(){
-        
+    public void executar(){
+        Map<String, Object> novosDados = new HashMap<>();
+        novosDados.put("nome", estado.getNovoNome());
+        novosDados.put("senha", estado.getNovaSenha());
+        novosDados.put("ehAdministrador", estado.getStatusAdministrador());
+        novosDados.put("ehAutorizado", estado.getStatusAutorizado());
+        GerenteUsuarios.getInstance().atualizarUsuario(estado.getUsuarioAEditar(), novosDados);
+        estado.visualizar();
     }
 }

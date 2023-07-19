@@ -51,9 +51,37 @@ public class Usuario {
 //        }
 //        return true;
 //    }
+
+    public Integer getUsrCod() {
+        return usrCod;
+    }
+    
+    public void setUsrCod(int usrCod){
+        this.usrCod = usrCod;
+    }
+    
+    public String getNome() {
+        return nome;
+    }
+    
+    public void setNome(String nome){
+        this.nome = nome;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
     
     public Boolean getIsAdmin() {
         return isAdmin;
+    }
+
+    public void setIsAdmin(Boolean isAdmin) {
+        this.isAdmin = isAdmin;
     }
 
     public Boolean getIsAutorizado() {
@@ -64,37 +92,13 @@ public class Usuario {
         this.isAutorizado = isAutorizado;
     }
     
-    public String getNome() {
-        return nome;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public Integer getUsrCod() {
-        return usrCod;
-    }
-    
-    public void setNome(String nome){
-        this.nome = nome;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    public void setIsAdmin(Boolean isAdmin) {
-        this.isAdmin = isAdmin;
-    }
-    
-    public void setUserAsAdmin(Usuario outroUsuario) {
-        if(this.isAdmin){
-            outroUsuario.setIsAdmin(true);
-        }else{
-            throw new IllegalAccessError("Nao possui a permissao para tornar usuários em Administradores");
-        }
-    }
+//    public void setUserAsAdmin(Usuario outroUsuario) {
+//        if(this.isAdmin){
+//            outroUsuario.setIsAdmin(true);
+//        }else{
+//            throw new IllegalAccessError("Nao possui a permissao para tornar usuários em Administradores");
+//        }
+//    }
 
     @Override
     public String toString() {
@@ -102,21 +106,21 @@ public class Usuario {
                 this.getIsAutorizado());
     }
     
-    public static Integer criar(Usuario u){
-        uDAO.insert(u);
-        return uDAO.getLastRegister();
-    }
-    
-    public static void remover(Usuario u){
-        uDAO.remove(u.getUsrCod());
-    }
-    
-    public void update(){
-        uDAO.update(this);
-    }
-    
-    public static Usuario getUser(Integer usrCod){
-        return uDAO.findById(usrCod);        
-    }
+//    public static Integer criar(Usuario u){
+//        uDAO.insert(u);
+//        return uDAO.getLastRegister();
+//    }
+//    
+//    public static void remover(Usuario u){
+//        uDAO.remove(u.getUsrCod());
+//    }
+//    
+//    public void update(){
+//        uDAO.update(this);
+//    }
+//    
+//    public static Usuario getUser(Integer usrCod){
+//        return uDAO.findById(usrCod);        
+//    }
     
 }
