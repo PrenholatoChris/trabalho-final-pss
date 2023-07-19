@@ -13,11 +13,11 @@ import java.util.List;
  * @author Vanderson
  */
 public class RemoverUsuarioCommand extends GerenteUsuariosCommand{
-    private int usuarioCod;
+    private Usuario usuario;
     private UsuarioDAO dao;
     
-    public void setUsuarioCod(int usuarioCod){
-        this.usuarioCod = usuarioCod;
+    public void setUsuario(Usuario usuario){
+        this.usuario = usuario;
     }
     
     public RemoverUsuarioCommand(List<Usuario> usuarios, UsuarioDAO dao){
@@ -27,13 +27,7 @@ public class RemoverUsuarioCommand extends GerenteUsuariosCommand{
     
     @Override
     public void executar(){
-        int index;
-        for(index = 0; index < usuarios.size(); index++){
-            if(usuarios.get(index).getUsrCod() == usuarioCod){
-                break;
-            }
-        }
-        usuarios.remove(index);
-        dao.remove(usuarioCod);
+        usuarios.remove(usuario);
+        dao.remove(usuario.getUsrCod());
     }
 }

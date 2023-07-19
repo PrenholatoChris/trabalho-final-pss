@@ -28,6 +28,11 @@ public abstract class EditorUsuarioState {
         return view.getSenhaTextField().getText();
     }
     
+    public EditorUsuarioState(EditorUsuarioPresenter editorUsuario, EditorUsuarioView view){
+        this.editorUsuario = editorUsuario;
+        this.view = view;
+    }
+    
     public void editar() throws UnsupportedOperationException{
         throw new UnsupportedOperationException("Não é possível passar do estado " + getEstado() + " para o estado Edição.");
     }

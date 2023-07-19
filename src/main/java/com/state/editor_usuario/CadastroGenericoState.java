@@ -17,8 +17,7 @@ import javax.swing.JButton;
 public class CadastroGenericoState extends EditorUsuarioState{
     
     public CadastroGenericoState(EditorUsuarioPresenter editorUsuario, EditorUsuarioView view){
-        super.editorUsuario = editorUsuario;
-        super.view = view;
+        super(editorUsuario, view);
         
         JButton botaoConfirmar = new JButton("Confirmar");
         botaoConfirmar.addActionListener(new ActionListener(){

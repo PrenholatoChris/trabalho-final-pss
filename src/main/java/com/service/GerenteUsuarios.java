@@ -99,9 +99,9 @@ public class GerenteUsuarios {
         return comando.getUsuariosEncontrados();
     }
     
-    public void removerUsuario(int usuarioCod){
+    public void removerUsuario(Usuario usuario){
         RemoverUsuarioCommand comando = (RemoverUsuarioCommand)comandos.get("Remover");
-        comando.setUsuarioCod(usuarioCod);
+        comando.setUsuario(usuario);
         comando.executar();
         notificarObservers();
     }

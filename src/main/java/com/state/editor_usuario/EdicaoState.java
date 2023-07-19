@@ -11,16 +11,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JLabel;
 
 /**
  *
  * @author Vanderson
  */
-public class EdicaoState extends EditorUsuarioState{
+public class EdicaoState extends DependenteUsuarioState{
     private JCheckBox ehAdminBox;
     private JCheckBox ehAuthBox;
-    private Usuario usuarioAEditar;
 
     public Boolean getStatusAdministrador(){
         return ehAdminBox.isSelected();
@@ -39,13 +37,11 @@ public class EdicaoState extends EditorUsuarioState{
     }
     
     public Usuario getUsuarioAEditar() {
-        return usuarioAEditar;
+        return usuarioProvido;
     }
     
     public EdicaoState(EditorUsuarioPresenter editorUsuario, EditorUsuarioView view, Usuario usuarioAEditar){
-        super.editorUsuario = editorUsuario;
-        super.view = view;
-        this.usuarioAEditar = usuarioAEditar;
+        super(editorUsuario, view, usuarioAEditar);
         
         carregarBotoes();
         carregarDetalhesUsuario();
@@ -54,7 +50,7 @@ public class EdicaoState extends EditorUsuarioState{
     
     @Override
     public void visualizar(){
-        editorUsuario.setEstado(new VisualizacaoState(editorUsuario, view, usuarioAEditar));
+        editorUsuario.setEstado(new VisualizacaoState(editorUsuario, view, usuarioProvido));
     }
     
     private void carregarBotoes(){
@@ -80,18 +76,18 @@ public class EdicaoState extends EditorUsuarioState{
     }
     
     private void carregarDetalhesUsuario(){
-        view.getNomeTextField().setText(usuarioAEditar.getNome());
+        view.getNomeTextField().setText(usuarioProvido.getNome());
         view.getNomeTextField().setEditable(true);
         
-        view.getSenhaTextField().setText(usuarioAEditar.getSenha());
+        view.getSenhaTextField().setText(usuarioProvido.getSenha());
         view.getSenhaTextField().setEditable(true);
         
         view.getPainelAuxiliar().removeAll();
         
-        ehAdminBox = new JCheckBox("É Administrador", usuarioAEditar.getIsAdmin());
+        ehAdminBox = new JCheckBox("É Administrador", usuarioProvido.getIsAdmin());
         view.getPainelAuxiliar().add(ehAdminBox);
         
-        ehAuthBox = new JCheckBox("Está Autorizado", usuarioAEditar.getIsAutorizado());
+        ehAuthBox = new JCheckBox("Está Autorizado", usuarioProvido.getIsAutorizado());
         view.getPainelAuxiliar().add(ehAuthBox);
     }
 }

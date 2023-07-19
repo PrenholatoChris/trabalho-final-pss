@@ -6,11 +6,13 @@ package com.view;
 
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Window;
 import javax.swing.BoxLayout;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
 /**
@@ -29,6 +31,10 @@ public class EditorUsuarioView {
 //    public JPanel getPainelConteudo() {
 //        return painelConteudo;
 //    }
+    
+    public Window getTela(){
+        return SwingUtilities.getWindowAncestor(painelConteudo);
+    }
 
     public JPanel getPainelAuxiliar() {
         return painelAuxiliar;

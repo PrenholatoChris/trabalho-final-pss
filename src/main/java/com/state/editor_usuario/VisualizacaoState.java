@@ -16,13 +16,10 @@ import javax.swing.JLabel;
  *
  * @author Vanderson
  */
-public class VisualizacaoState extends EditorUsuarioState{
-    private Usuario usuarioVisualizado;
+public class VisualizacaoState extends DependenteUsuarioState{
     
     public VisualizacaoState(EditorUsuarioPresenter editorUsuario, EditorUsuarioView view, Usuario usuarioVisualizado){
-        super.editorUsuario = editorUsuario;
-        super.view = view;
-        this.usuarioVisualizado = usuarioVisualizado;
+        super(editorUsuario, view, usuarioVisualizado);
         
         carregarBotoes();
         carregarDetalhesUsuario();
@@ -31,12 +28,12 @@ public class VisualizacaoState extends EditorUsuarioState{
     
     @Override
     public void editar(){
-        editorUsuario.setEstado(new EdicaoState(editorUsuario, view, usuarioVisualizado));
+        editorUsuario.setEstado(new EdicaoState(editorUsuario, view, usuarioProvido));
     }
     
     @Override
     public void remover(){
-        editorUsuario.setEstado(new RemocaoState(editorUsuario, view, usuarioVisualizado));
+        editorUsuario.setEstado(new RemocaoState(editorUsuario, view, usuarioProvido));
     }
     
     private void carregarBotoes(){
@@ -52,24 +49,30 @@ public class VisualizacaoState extends EditorUsuarioState{
         view.getPainelBotoes().add(botaoEditar);
         
         JButton botaoRemover = new JButton("Remover");
+        botaoRemover.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                remover();
+            }
+        });
         view.getPainelBotoes().add(botaoRemover);
         
         adicionarBotaoCancelarPadrao();
     }
     
     private void carregarDetalhesUsuario(){
-        view.getNomeTextField().setText(usuarioVisualizado.getNome());
+        view.getNomeTextField().setText(usuarioProvido.getNome());
         view.getNomeTextField().setEditable(false);
         
-        view.getSenhaTextField().setText(usuarioVisualizado.getSenha());
+        view.getSenhaTextField().setText(usuarioProvido.getSenha());
         view.getSenhaTextField().setEditable(false);
         
         view.getPainelAuxiliar().removeAll();
         
-        JLabel statusAdminLabel = new JLabel(String.format("É Administrador: %s", usuarioVisualizado.getIsAdmin() ? "SIM" : "NÃO"));
+        JLabel statusAdminLabel = new JLabel(String.format("É Administrador: %s", usuarioProvido.getIsAdmin() ? "SIM" : "NÃO"));
         view.getPainelAuxiliar().add(statusAdminLabel);
         
-        JLabel statusAutorizadoLabel = new JLabel(String.format("Está Autorizado: %s", usuarioVisualizado.getIsAutorizado() ? "SIM" : "NÃO"));
+        JLabel statusAutorizadoLabel = new JLabel(String.format("Está Autorizado: %s", usuarioProvido.getIsAutorizado() ? "SIM" : "NÃO"));
         view.getPainelAuxiliar().add(statusAutorizadoLabel);
     }
 }

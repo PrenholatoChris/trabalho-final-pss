@@ -4,6 +4,7 @@
  */
 package com.command.editor_usuario;
 
+import com.service.GerenteUsuarios;
 import com.state.editor_usuario.RemocaoState;
 
 /**
@@ -18,7 +19,7 @@ public class RemoverCommand implements IEditorUsuarioCommand{
     }
     
     @Override
-    public void  executar(){
-        
+    public void executar(){
+        GerenteUsuarios.getInstance().removerUsuario(estado.getUsuarioARemover());
     }
 }

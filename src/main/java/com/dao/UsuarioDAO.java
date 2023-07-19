@@ -91,7 +91,7 @@ public class UsuarioDAO implements DAO<Usuario> {
     @Override
     public void update(Usuario usuario) {
         String sql = String.format("UPDATE USUARIOS SET NOME = '%s', SENHA = '%s', IS_ADMIN = %d, IS_AUTORIZADO = %d WHERE USUARIOS.USR_COD = '%d'",
-                        usuario.getNome(), usuario.getSenha(), (usuario.getIsAdmin()?1:0), (usuario.getIsAutorizado()?1:0), usuario.getUsrCod());
+            usuario.getNome(), usuario.getSenha(), (usuario.getIsAdmin()?1:0), (usuario.getIsAutorizado()?1:0), usuario.getUsrCod());
         execute(sql);
     }
     
