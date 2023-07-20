@@ -1,0 +1,40 @@
+{
+ "MSG": "",
+ "OPERACAO": "Alterar Senha",
+  "NOME": "Christian",
+  "DATA": "19-07-2023",
+  "HORA": "18:00:17",
+  "USUARIO": "admin"
+},
+{
+ "MSG": "",
+ "OPERACAO": "Alterar Senha",
+  "NOME": "Christian",
+  "DATA": "19-07-2023",
+  "HORA": "18:00:17",
+  "USUARIO": "AAAAAAAAAAAAAAAAA"
+},
+{
+ "MSG": "",
+ "OPERACAO": "Alterar Senha",
+  "NOME": "Christian",
+  "DATA": "19-07-2023",
+  "HORA": "18:03:02",
+  "USUARIO": "admin"
+},
+{
+ "MSG": "",
+ "OPERACAO": "Alterar Senha",
+  "NOME": "Christian",
+  "DATA": "19-07-2023",
+  "HORA": "18:03:02",
+  "USUARIO": "AAAAAAAAAAAAAAAAA"
+},
+{
+ "MSG": "Ocorreu a falha foase ao realizar ",
+ "OPERACAO": "Alterar Senha",
+  "NOME": "teste",
+  "DATA": "19-07-2023",
+  "HORA": "18:03:02",
+  "USUARIO": "teste"
+},

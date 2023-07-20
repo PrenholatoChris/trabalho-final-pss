@@ -63,7 +63,7 @@ public class ListaUsuariosView {
         painelPrincipal.add(painelTabela);
         
         tabelaDados = new JTable(new ModeloVisualTabela(Arrays.asList(
-            "Código", "Nome", "É Admin", "É Autorizado"
+            "Código", "Nome", "É Admin", "É Autorizado", "Data de Cadastro"
         )));
         tabelaDados.setFillsViewportHeight(false);
         painelTabela.add(new JScrollPane(tabelaDados));

@@ -10,7 +10,10 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import java.util.List;
 
@@ -18,7 +21,7 @@ import java.util.List;
  *
  * @author chris
  */
-public class UsuarioDAO implements DAO<Usuario> {
+public class UsuarioDAO implements IDAO<Usuario> {
     
     private Connection conn;
     private Statement statement;
@@ -39,12 +42,15 @@ public class UsuarioDAO implements DAO<Usuario> {
         Usuario usuario = null;
         try {
             String sql = "SELECT * FROM USUARIOS WHERE USUARIOS.USR_COD = " + usr_cod;
+            
             resultSet = statement.executeQuery(sql);
+            Date dataCadastro = new SimpleDateFormat("dd/MM/yyyy").parse(resultSet.getString("DATA_CADASTRO"));
             usuario = new Usuario(resultSet.getInt("USR_COD"),
                     resultSet.getString("NOME"),
                     resultSet.getString("SENHA"),
                     resultSet.getBoolean("IS_ADMIN"),
-                    resultSet.getBoolean("IS_AUTORIZADO"));
+                    resultSet.getBoolean("IS_AUTORIZADO"),
+                    dataCadastro);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -73,6 +79,7 @@ public class UsuarioDAO implements DAO<Usuario> {
         try {
             String sql = "SELECT * FROM USUARIOS";
             resultSet = statement.executeQuery(sql);
+             Date dataCadastro = new SimpleDateFormat("dd/MM/yyyy").parse(resultSet.getString("DATA_CADASTRO"));
             while (resultSet.next()) {
                 Boolean isAdmin = resultSet.getBoolean("IS_ADMIN");
                 Boolean isAutorizado = resultSet.getBoolean("IS_AUTORIZADO");
@@ -80,7 +87,8 @@ public class UsuarioDAO implements DAO<Usuario> {
                         new Usuario(resultSet.getInt("USR_COD"),
                                 resultSet.getString("NOME"),
                                 resultSet.getString("SENHA"),
-                                isAdmin,isAutorizado));
+                                isAdmin,isAutorizado,
+                            dataCadastro));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -103,7 +111,14 @@ public class UsuarioDAO implements DAO<Usuario> {
     
     @Override
     public void insert(Usuario usuario) {
-        String sql = String.format("INSERT INTO USUARIOS ( NOME, SENHA, IS_ADMIN, IS_AUTORIZADO) VALUES  ('%s', '%s', %d, %d)",usuario.getNome(), usuario.getSenha(), (usuario.getIsAdmin()?1:0), (usuario.getIsAutorizado()?1:0));
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String dataCadastro = formatter.format(usuario.getDataCadastro());
+        String sql = String.format("INSERT INTO USUARIOS ( NOME, SENHA, IS_ADMIN, IS_AUTORIZADO, DATA_CADASTRO) VALUES  ('%s', '%s', %d, %d, '%s')",
+                usuario.getNome(),
+                    usuario.getSenha(),
+                    (usuario.getIsAdmin()?1:0),
+                    (usuario.getIsAutorizado()?1:0),
+                    dataCadastro);
         execute(sql);
     }
     
@@ -114,7 +129,8 @@ public class UsuarioDAO implements DAO<Usuario> {
                 + ", NOME VARCHAR(20)"
                 + ", SENHA VARCHAR(20)"
                 + ", IS_ADMIN INTEGER"
-                + ", IS_AUTORIZADO INTEGER)";
+                + ", IS_AUTORIZADO INTEGER"
+                + ", DATA_CADASTRO VARCHAR(20))";
         execute(sql);
     }
     
