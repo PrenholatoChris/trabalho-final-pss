@@ -6,6 +6,9 @@ package com.command.gerente_usuarios;
 
 import com.dao.UsuarioDAO;
 import com.model.Usuario;
+import com.service.GerenteSessao;
+import com.sistemalogger.SistemaLogger;
+import com.sistemalogger.TipoOperacao;
 import java.util.List;
 
 /**

@@ -7,6 +7,8 @@ package com.service;
 import com.model.Notificacao;
 import com.model.Usuario;
 import com.model.UsuarioNotificacao;
+import com.sistemalogger.SistemaLogger;
+import com.sistemalogger.TipoOperacao;
 import java.util.List;
 
 /**
@@ -29,6 +31,7 @@ public class ListaUsuarioRepository {
         for (Usuario usuario : usuarios) {
             UsuarioNotificacao userNot = new UsuarioNotificacao(usuario.getUsrCod(), notCod);
             UsuarioNotificacao.criar(userNot);
+            SistemaLogger.makeInfoLog(TipoOperacao.ENVIANDO_NOTIFICACAO, usuario.getNome(),GerenteSessao.getInstance().getUsuarioLogado().getNome());
         }
     }
 }

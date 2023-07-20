@@ -5,7 +5,9 @@
 package com.command.editor_usuario;
 
 import com.model.Usuario;
+import com.service.GerenteSessao;
 import com.service.GerenteUsuarios;
+import com.service.ValidadorSenhaService;
 import com.state.editor_usuario.CadastroGenericoState;
 
 /**
@@ -22,7 +24,14 @@ public class CadastrarGenericoCommand implements IEditorUsuarioCommand{
     @Override
     public void  executar(){
         boolean ehUsuarioInicial = GerenteUsuarios.getInstance().getQtdUsuarios() == 0;
-        Usuario usuario = new Usuario(estado.getNomeInserido(), estado.getSenhaInserida(), ehUsuarioInicial, ehUsuarioInicial);
-        GerenteUsuarios.getInstance().adicionarUsuario(usuario);
+        
+        try{
+            ValidadorSenhaService.validar(estado.getSenhaInserida());
+            Usuario usuario = new Usuario(estado.getNomeInserido(), estado.getSenhaInserida(), ehUsuarioInicial, ehUsuarioInicial);
+            GerenteUsuarios.getInstance().adicionarUsuario(usuario);
+            if(ehUsuarioInicial){
+               GerenteSessao.getInstance().setUsuarioLogado(usuario);
+            }
+        }catch(Exception e){}
     }
 }

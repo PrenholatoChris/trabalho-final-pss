@@ -6,7 +6,10 @@ package com.command.lista_usuarios;
 
 import com.dao.UsuarioDAO;
 import com.model.Usuario;
+import com.service.GerenteSessao;
 import com.service.GerenteUsuarios;
+import com.sistemalogger.SistemaLogger;
+import com.sistemalogger.TipoOperacao;
 import com.state.lista_usuarios.AutorizacaoState;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,6 +35,7 @@ public class AutorizarCommand implements IListaUsuariosCommand{
         novosDados.put("ehAutorizado", Boolean.TRUE);
         for(Usuario usuario : usuariosParaAutorizar){
             GerenteUsuarios.getInstance().atualizarUsuario(usuario, novosDados);
+            SistemaLogger.makeInfoLog(TipoOperacao.AUTORIZACAO_USUARIO, usuario.getNome(), GerenteSessao.getInstance().getUsuarioLogado().getNome());
         }
     }
 }

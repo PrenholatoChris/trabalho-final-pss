@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+  <Appenders>
+    <File name="File" fileName="logs/application-json.log">
+      <PatternLayout>
+        <Pattern>{%n "MSG": "%msg",%n "OPERACAO": "%X{operacao}",%n  "NOME": "%X{nome}",%n  "DATA": "%d{dd-MM-yyyy}",%n  "HORA": "%d{HH:mm:ss}",%n  "USUARIO": "%X{usuario}"%n},%n</Pattern>
+      </PatternLayout>
+    </File>
+  </Appenders>
+  <Loggers>
+    <Root level="info">
+      <AppenderRef ref="File"/>
+    </Root>
+  </Loggers>
+</Configuration>

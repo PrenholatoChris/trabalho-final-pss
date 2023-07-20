@@ -13,6 +13,8 @@ import com.model.UsuarioNotificacao;
 import com.service.GerenteNotificacoes;
 import com.service.GerenteSessao;
 import com.service.observer.INotificacoesCarregadasObserver;
+import com.sistemalogger.SistemaLogger;
+import com.sistemalogger.TipoOperacao;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
@@ -93,6 +95,8 @@ public class ListaNotificacoesPresenter implements INotificacoesCarregadasObserv
                         JOptionPane.showMessageDialog(view, uNot.getMensagem(),uNot.getTitulo(), 1);
                         uNot.setWasRead(true);
                         uNot.update();
+                        Usuario usuarioLeitor = GerenteSessao.getInstance().getUsuarioLogado();
+                        SistemaLogger.makeInfoLog(TipoOperacao.LEITURA_NOTIFICACAO, usuarioLeitor.getNome(), usuarioLeitor.getNome());
                     }
                 });
         
