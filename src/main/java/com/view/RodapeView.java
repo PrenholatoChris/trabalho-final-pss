@@ -13,8 +13,9 @@ import javax.swing.JPanel;
  * @author Vanderson
  */
 public class RodapeView {
-    private JButton botaoNotificacoes;
     private JButton botaoAlterarSenha;
+    private JButton botaoNotificacoes;
+    private JButton botaoSair;
     private JLabel informacoesUsuarioLabel;
 
     public JButton getBotaoAlterarSenha() {
@@ -23,6 +24,10 @@ public class RodapeView {
     
     public JButton getBotaoNotificacoes() {
         return botaoNotificacoes;
+    }
+    
+    public JButton getBotaoSair(){
+        return botaoSair;
     }
 
     public JLabel getInformacoesUsuarioLabel() {
@@ -38,5 +43,8 @@ public class RodapeView {
         
         botaoAlterarSenha = new JButton("Alterar Senha");
         painelRodape.add(botaoAlterarSenha);
+        
+        botaoSair = new JButton("Sair");
+        painelRodape.add(botaoSair);
     }
 }

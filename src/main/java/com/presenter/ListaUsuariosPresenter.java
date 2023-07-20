@@ -5,6 +5,7 @@
 package com.presenter;
 
 import com.model.Usuario;
+import com.service.observer.ISessaoObserver;
 import com.service.observer.IUsuariosObserver;
 import com.state.lista_usuarios.AutorizacaoState;
 import com.state.lista_usuarios.BaseState;

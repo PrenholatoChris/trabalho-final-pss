@@ -8,6 +8,7 @@ import com.model.Notificacao;
 import com.model.Usuario;
 import com.model.UsuarioNotificacao;
 import com.service.GerenteNotificacoes;
+import com.service.GerenteSessao;
 import com.service.observer.INotificacoesCarregadasObserver;
 import com.service.observer.ISessaoObserver;
 import com.view.RodapeView;
@@ -49,25 +50,36 @@ public class RodapePresenter implements ISessaoObserver, INotificacoesCarregadas
                 telaPrincipal.alterarSenha();
             }
         });
+        
+        view.getBotaoSair().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                System.exit(0);
+            }
+        });
     }
     
     @Override
     public void atualizarNotificacoesCarregadas(List<UsuarioNotificacao> notificacoesUsuario){
         view.getBotaoNotificacoes().setText(String.format("Notificações - %d", notificacoesUsuario.size()));
-        painelRodape.revalidate();
-        painelRodape.repaint();
+        view.getBotaoNotificacoes().revalidate();
+        view.getBotaoNotificacoes().repaint();
     }
     
     @Override
     public final void atualizarSessao(Usuario usuarioLogado){
         if(usuarioLogado != null){
             view.getInformacoesUsuarioLabel().setText(String.format("%s - %s", usuarioLogado.getNome(), usuarioLogado.getIsAdmin() ? "Administrador" : "Comum"));
-            view.getBotaoAlterarSenha().setVisible(true);
-            view.getBotaoNotificacoes().setVisible(true);
+            mudarVisibilidadeBotao(Boolean.TRUE);
         }else{
             view.getInformacoesUsuarioLabel().setText("Nenhum Usuário Logado");
-            view.getBotaoAlterarSenha().setVisible(false);
-            view.getBotaoNotificacoes().setVisible(false);
+            mudarVisibilidadeBotao(Boolean.FALSE);
         }
+    }
+    
+    private void mudarVisibilidadeBotao(Boolean ehVisivel){
+        view.getBotaoAlterarSenha().setVisible(ehVisivel);
+        view.getBotaoNotificacoes().setVisible(ehVisivel);
+        view.getBotaoSair().setVisible(ehVisivel);
     }
 }
