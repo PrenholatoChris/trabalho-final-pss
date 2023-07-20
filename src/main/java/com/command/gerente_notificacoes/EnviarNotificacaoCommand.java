@@ -6,6 +6,8 @@ package com.command.gerente_notificacoes;
 
 import com.model.Notificacao;
 import com.model.Usuario;
+import com.model.UsuarioNotificacao;
+import com.service.ListaUsuarioRepository;
 import java.util.List;
 
 /**
@@ -24,11 +26,11 @@ public class EnviarNotificacaoCommand extends GerenteNotificacoesCommand{
         this.usuariosAlvo = usuariosAlvo;
     }
     
-    public EnviarNotificacaoCommand(List<Notificacao> notificacoesUsuarioLogado){
+    public EnviarNotificacaoCommand(List<UsuarioNotificacao> notificacoesUsuarioLogado){
         super(notificacoesUsuarioLogado);
     }
     
     public void executar(){
-        
+        new ListaUsuarioRepository(usuariosAlvo, notificacao);
     }
 }

@@ -5,6 +5,7 @@
 package com.command.gerente_notificacoes;
 
 import com.model.Notificacao;
+import com.model.UsuarioNotificacao;
 import java.util.List;
 
 /**
@@ -12,9 +13,9 @@ import java.util.List;
  * @author Vanderson
  */
 public abstract class GerenteNotificacoesCommand {
-    protected List<Notificacao> notificacoesUsuarioLogado;
+    protected List<UsuarioNotificacao> notificacoesUsuarioLogado;
     
-    public GerenteNotificacoesCommand(List<Notificacao> notificacoesUsuarioLogado){
+    public GerenteNotificacoesCommand(List<UsuarioNotificacao> notificacoesUsuarioLogado){
         this.notificacoesUsuarioLogado = notificacoesUsuarioLogado;
     }
     

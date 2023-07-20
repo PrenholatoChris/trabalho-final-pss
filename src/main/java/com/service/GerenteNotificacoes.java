@@ -8,6 +8,7 @@ import com.command.gerente_notificacoes.EnviarNotificacaoCommand;
 import com.command.gerente_notificacoes.GerenteNotificacoesCommand;
 import com.model.Notificacao;
 import com.model.Usuario;
+import com.model.UsuarioNotificacao;
 import com.service.observer.INotificacoesCarregadasObserver;
 import com.service.observer.ISessaoObserver;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class GerenteNotificacoes implements ISessaoObserver {
     private static GerenteNotificacoes instance;
     private Map<String, GerenteNotificacoesCommand> comandos;
     private List<INotificacoesCarregadasObserver> observers;
-    private List<Notificacao> notificacoesUsuarioLogado;
+    private List<UsuarioNotificacao> notificacoesUsuarioLogado;
     
     public static GerenteNotificacoes getInstance(){
         if(instance == null){
@@ -72,7 +73,7 @@ public class GerenteNotificacoes implements ISessaoObserver {
     }
     
     private void carregarNotificacoesUsuario(Usuario usuario){
-        notificacoesUsuarioLogado = new ArrayList<>();
+        notificacoesUsuarioLogado = UsuarioNotificacao.getNotificationsOfUser(GerenteSessao.getInstance().getUsuarioLogado().getUsrCod());
         notificarObservers();
     }
     

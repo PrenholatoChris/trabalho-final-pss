@@ -4,7 +4,7 @@
  */
 package com.service.observer;
 
-import com.model.Notificacao;
+import com.model.UsuarioNotificacao;
 import java.util.List;
 
 /**
@@ -13,5 +13,5 @@ import java.util.List;
  */
 public interface INotificacoesCarregadasObserver {
     
-    public void atualizarNotificacoesCarregadas(List<Notificacao> notificacoes);
+    public void atualizarNotificacoesCarregadas(List<UsuarioNotificacao> notificacoesUsuario);
 }

@@ -6,6 +6,7 @@ package com.presenter;
 
 import com.model.Notificacao;
 import com.model.Usuario;
+import com.model.UsuarioNotificacao;
 import com.service.GerenteNotificacoes;
 import com.service.observer.INotificacoesCarregadasObserver;
 import com.service.observer.ISessaoObserver;
@@ -21,9 +22,11 @@ import javax.swing.JPanel;
  */
 public class RodapePresenter implements ISessaoObserver, INotificacoesCarregadasObserver{
     private RodapeView view;
+    private JPanel painelRodape;
     private ListaNotificacoesPresenter listaNotificacoes = null;
     
     public RodapePresenter(JPanel painelRodape, JPanel painelConteudo, TelaPrincipalPresenter telaPrincipal){
+        this.painelRodape = painelRodape;
         view = new RodapeView(painelRodape);
         atualizarSessao(null);
         
@@ -49,8 +52,10 @@ public class RodapePresenter implements ISessaoObserver, INotificacoesCarregadas
     }
     
     @Override
-    public void atualizarNotificacoesCarregadas(List<Notificacao> notificacoes){
-        view.getBotaoNotificacoes().setText(String.format("Notificações - %d", notificacoes.size()));
+    public void atualizarNotificacoesCarregadas(List<UsuarioNotificacao> notificacoesUsuario){
+        view.getBotaoNotificacoes().setText(String.format("Notificações - %d", notificacoesUsuario.size()));
+        painelRodape.revalidate();
+        painelRodape.repaint();
     }
     
     @Override

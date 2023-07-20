@@ -5,6 +5,7 @@
 package com.state.tela_principal;
 
 import com.model.Usuario;
+import com.presenter.EditorUsuarioPresenter;
 import com.presenter.TelaPrincipalPresenter;
 import com.service.GerenteSessao;
 import com.service.GerenteUsuarios;
@@ -129,6 +130,12 @@ public class InicializacaoState extends TelaPrincipalState{
         painelBotoes.add(botaoConfirmar);
         
         JButton botaoCadastrar = new JButton("Cadastrar");
+        botaoCadastrar.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                new EditorUsuarioPresenter(painelConteudo);
+            }
+        });
         painelBotoes.add(botaoCadastrar);
         
         telaLogin.pack();

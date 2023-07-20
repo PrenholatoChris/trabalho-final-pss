@@ -34,6 +34,7 @@ public class BaseState extends ListaUsuariosState {
                     AutorizacaoState autorizacaoState = new AutorizacaoState(listaUsuarios, view);
                     listaUsuarios.setEstado(autorizacaoState);
                     autorizacaoState.executar();
+                    listaUsuarios.setEstado(new BaseState(listaUsuarios, view));
                 }
             }
         });

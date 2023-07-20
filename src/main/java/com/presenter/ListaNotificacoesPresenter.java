@@ -46,8 +46,32 @@ public class ListaNotificacoesPresenter implements INotificacoesCarregadasObserv
     }
     
     @Override
-    public void atualizarNotificacoesCarregadas(List<Notificacao> notificacoes){
+    public void atualizarNotificacoesCarregadas(List<UsuarioNotificacao> notificacoesUsuario){
         
+    }
+    
+    private void atualizar(){
+        JTable tabela = view.getNotificationTable();
+        DefaultTableModel model;//= (DefaultTableModel) tabela.getModel();
+        String[] columns = {"msgCod", "Titulo", "Mensagem", "Lida"};
+        Object[][] data = new Object[usrNots.size()][4];
+        Integer totalNotificacoes = usrNots.size();
+        Integer qtdNotificacoesNaoLidas = 0;
+        for(int i = 0; i< totalNotificacoes; i++){
+            Boolean wasRead =usrNots.get(i).getWasRead();
+            if(!wasRead){
+                qtdNotificacoesNaoLidas++;
+            }
+            data[i][0] = usrNots.get(i).getNotCod();
+           data[i][1] = usrNots.get(i).getTitulo();
+           data[i][2] = usrNots.get(i).getMensagem();
+           data[i][3] = wasRead;
+        }
+        model = new DefaultTableModel(data, columns);
+        tabela.setModel(model);
+        
+        view.getNotCaixaField().setText(totalNotificacoes+" notificações na caixa");
+        view.getNaoLidasField().setText(qtdNotificacoesNaoLidas+" notificações não lidas");
     }
     
     public void close(){
@@ -73,29 +97,5 @@ public class ListaNotificacoesPresenter implements INotificacoesCarregadasObserv
                 });
         
         atualizar();
-    }
-    
-    private void atualizar(){
-        JTable tabela = view.getNotificationTable();
-        DefaultTableModel model;//= (DefaultTableModel) tabela.getModel();
-        String[] columns = {"msgCod", "Titulo", "Mensagem", "Lida"};
-        Object[][] data = new Object[usrNots.size()][4];
-        Integer totalNotificacoes = usrNots.size();
-        Integer qtdNotificacoesNaoLidas = 0;
-        for(int i = 0; i< totalNotificacoes; i++){
-            Boolean wasRead =usrNots.get(i).getWasRead();
-            if(!wasRead){
-                qtdNotificacoesNaoLidas++;
-            }
-            data[i][0] = usrNots.get(i).getNotCod();
-           data[i][1] = usrNots.get(i).getTitulo();
-           data[i][2] = usrNots.get(i).getMensagem();
-           data[i][3] = wasRead;
-        }
-        model = new DefaultTableModel(data, columns);
-        tabela.setModel(model);
-        
-        view.getNotCaixaField().setText(totalNotificacoes+" notificações na caixa");
-        view.getNaoLidasField().setText(qtdNotificacoesNaoLidas+" notificações não lidas");
     }
 }
