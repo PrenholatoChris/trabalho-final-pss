@@ -23,6 +23,16 @@ import javax.swing.JTextField;
  */
 public class AlteracaoSenhaState extends TelaPrincipalState{
     private JInternalFrame telaAlteraSenha;
+    private JTextField senhaAntigaField;
+    private JTextField senhaNovaField;
+    
+    public String getSenhaAntigaTexto(){
+        return senhaAntigaField.getText();
+    }
+    
+    public String getSenhaNovaFieldTexto(){
+        return senhaNovaField.getText();
+    }
     
     public AlteracaoSenhaState(TelaPrincipalPresenter telaPrincipal, JPanel painelConteudo){
         super.telaPrincipal = telaPrincipal;
@@ -65,11 +75,11 @@ public class AlteracaoSenhaState extends TelaPrincipalState{
         JPanel painelCampos = new JPanel(new GridLayout(0, 1, 5, 10));
         painelFormulario.add(painelCampos);
         
-        JTextField senhaAntigaField = new JTextField();
+        senhaAntigaField = new JTextField();
         senhaAntigaField.setColumns(15);
         painelCampos.add(senhaAntigaField);
         
-        JTextField senhaNovaField = new JTextField();
+        senhaNovaField = new JTextField();
         senhaNovaField.setColumns(15);
         painelCampos.add(senhaNovaField);
         
@@ -81,6 +91,7 @@ public class AlteracaoSenhaState extends TelaPrincipalState{
             @Override
             public void actionPerformed(ActionEvent e){
                 executar();
+                close();
             }
         });
         painelBotoes.add(botaoConfirmar);

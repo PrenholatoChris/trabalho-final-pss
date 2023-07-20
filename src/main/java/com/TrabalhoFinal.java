@@ -36,20 +36,20 @@ public class TrabalhoFinal {
 
     
     
-    UsuarioDAO udao = new UsuarioDAO();
-    udao.deletarTabelaUsuario();
-    udao.criarTabelaUsuario();
-    
-    Usuario userChris = new Usuario("Christian", "A3f@jfas", Boolean.TRUE, Boolean.TRUE);
-    Usuario.criar(userChris);
-    Usuario.criar(new Usuario("VandersonRei", "Tug@Pt!",Boolean.FALSE,Boolean.FALSE));
+//    UsuarioDAO udao = new UsuarioDAO();
+//    udao.deletarTabelaUsuario();
+//    udao.criarTabelaUsuario();
+//    
+//    Usuario userChris = new Usuario("Christian", "A3f@jfas", Boolean.TRUE, Boolean.TRUE);
+//    Usuario.criar(userChris);
+//    Usuario.criar(new Usuario("VandersonRei", "Tug@Pt!",Boolean.FALSE,Boolean.FALSE));
 //    Usuario.criar(userChris);
 //    Usuario.criar(new Usuario("Vanderson", "Tug4!ss", Boolean.FALSE, Boolean.FALSE));
     
-    NotificacaoDAO ndao = new NotificacaoDAO();
-
-    
-    UsuarioNotificacaoDAO undao = new UsuarioNotificacaoDAO();
+//    NotificacaoDAO ndao = new NotificacaoDAO();
+//
+//    
+//    UsuarioNotificacaoDAO undao = new UsuarioNotificacaoDAO();
 
 //    Usuario u2 = Usuario.getUser(2);
 //    Usuario u3 = Usuario.getUser(3);

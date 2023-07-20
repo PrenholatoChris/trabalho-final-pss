@@ -4,7 +4,11 @@
  */
 package com.command.tela_principal;
 
+import com.service.GerenteSessao;
+import com.service.GerenteUsuarios;
 import com.state.tela_principal.AlteracaoSenhaState;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -19,6 +23,11 @@ public class AlterarSenhaCommand implements ITelaPrincipalCommand {
     
     @Override
     public void executar(){
-        System.out.println("Sei la");
+        if(GerenteUsuarios.getInstance().autenticarUsuario(GerenteSessao.getInstance().getUsuarioLogado().getNome(), estado.getSenhaAntigaTexto()) != null){
+            Map<String, Object> novosDados = new HashMap<>();
+            novosDados.put("senha", estado.getSenhaNovaFieldTexto());
+            estado.getSenhaNovaFieldTexto(); //<- Tem que fazer uma validação de senha em cima disto.
+            GerenteUsuarios.getInstance().atualizarUsuario(GerenteSessao.getInstance().getUsuarioLogado(), novosDados);
+        }
     }
 }
