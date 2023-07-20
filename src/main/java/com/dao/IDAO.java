@@ -11,7 +11,7 @@ import java.util.List;
  * @author chris
  * @param <T>
  */
-public interface DAO<T> {
+public interface IDAO<T> {
     
     List<T> findAll();
     

@@ -14,6 +14,7 @@ import com.view.ListaUsuariosView;
 import com.view.ModeloVisualTabela;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.JPanel;
@@ -66,7 +67,7 @@ public class ListaUsuariosPresenter implements IUsuariosObserver {
         modeloTabela.clearRows();
         for(Usuario usuario : usuarios){
             List<Object> entrada = Arrays.asList(
-                usuario.getUsrCod(), usuario.getNome(), usuario.getIsAdmin(), usuario.getIsAutorizado()
+                usuario.getUsrCod(), usuario.getNome(), usuario.getIsAdmin(), usuario.getIsAutorizado(), new SimpleDateFormat("dd/MM/yyyy").format(usuario.getDataCadastro())
             );
             modeloTabela.addRow(entrada);
         }

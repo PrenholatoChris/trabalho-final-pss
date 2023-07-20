@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @author chris
  */
-public class NotificacaoDAO implements DAO<Notificacao>{
+public class NotificacaoDAO implements IDAO<Notificacao>{
     private Connection conn;
     private Statement statement;
     private ResultSet resultSet;
