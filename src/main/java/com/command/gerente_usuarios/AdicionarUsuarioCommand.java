@@ -33,6 +33,6 @@ public class AdicionarUsuarioCommand extends GerenteUsuariosCommand{
         usuarios.add(usuarioAdicao);
         dao.insert(usuarioAdicao);
         usuarioAdicao.setUsrCod(dao.getLastRegister());
-        SistemaLogger.makeInfoLog(TipoOperacao.INSERINDO_USUARIO, usuarioAdicao.getNome(), GerenteSessao.getInstance().getUsuarioLogado().getNome());
+        //SistemaLogger.makeInfoLog(TipoOperacao.INSERINDO_USUARIO, usuarioAdicao.getNome(), GerenteSessao.getInstance().getUsuarioLogado().getNome());
     }
 }
