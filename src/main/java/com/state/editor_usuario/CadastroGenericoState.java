@@ -30,4 +30,8 @@ public class CadastroGenericoState extends EditorUsuarioState{
         
         adicionarBotaoCancelarPadrao();
     }
+    
+    public void externalClose(){
+        view.close();
+    }
 }

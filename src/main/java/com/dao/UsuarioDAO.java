@@ -79,8 +79,8 @@ public class UsuarioDAO implements IDAO<Usuario> {
         try {
             String sql = "SELECT * FROM USUARIOS";
             resultSet = statement.executeQuery(sql);
-             Date dataCadastro = new SimpleDateFormat("dd/MM/yyyy").parse(resultSet.getString("DATA_CADASTRO"));
             while (resultSet.next()) {
+                Date dataCadastro = new SimpleDateFormat("dd/MM/yyyy").parse(resultSet.getString("DATA_CADASTRO"));
                 Boolean isAdmin = resultSet.getBoolean("IS_ADMIN");
                 Boolean isAutorizado = resultSet.getBoolean("IS_AUTORIZADO");
                 usuarios.add(

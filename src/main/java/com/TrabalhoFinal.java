@@ -72,10 +72,10 @@ public class TrabalhoFinal {
 //        u1.validarSenha(u1.getSenha());
 
 
-
-        
+        new UsuarioDAO().criarTabelaUsuario();
+        new NotificacaoDAO().criarTabelaNotificao();
+        new UsuarioNotificacaoDAO().criarTabelaUsuarioNotificacao();
         GerenteSessao.getInstance().addObserver(new TelaPrincipalPresenter());
-        System.out.println(new UsuarioDAO().findAll());
 //        
         
 //         

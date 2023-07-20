@@ -31,6 +31,7 @@ public class CadastrarGenericoCommand implements IEditorUsuarioCommand{
             GerenteUsuarios.getInstance().adicionarUsuario(usuario);
             if(ehUsuarioInicial){
                GerenteSessao.getInstance().setUsuarioLogado(usuario);
+               estado.externalClose();
             }
         }catch(Exception e){}
     }
