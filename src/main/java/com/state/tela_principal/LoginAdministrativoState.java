@@ -4,6 +4,7 @@
  */
 package com.state.tela_principal;
 
+import com.presenter.ListaUsuariosPresenter;
 import com.presenter.TelaPrincipalPresenter;
 import javax.swing.JPanel;
 
@@ -15,6 +16,14 @@ public class LoginAdministrativoState extends TelaPrincipalState{
     
     public JPanel getPainelConteudo(){
         return super.painelConteudo;
+    }
+    
+    public ListaUsuariosPresenter getListaUsuarios(){
+        return telaPrincipal.getListaUsuarios();
+    }
+    
+    public void setListaUsuarios(ListaUsuariosPresenter listaUsuarios){
+        telaPrincipal.setListaUsuarios(listaUsuarios);
     }
     
     public LoginAdministrativoState(TelaPrincipalPresenter telaPrincipal, JPanel painelConteudo){

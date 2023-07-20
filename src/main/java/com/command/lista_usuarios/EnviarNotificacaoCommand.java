@@ -4,6 +4,8 @@
  */
 package com.command.lista_usuarios;
 
+import com.model.Notificacao;
+import com.service.GerenteNotificacoes;
 import com.state.lista_usuarios.EnvioNotificacaoState;
 
 /**
@@ -19,6 +21,7 @@ public class EnviarNotificacaoCommand implements IListaUsuariosCommand{
     
     @Override
     public void executar(){
-        
+        Notificacao notificacao = new Notificacao(estado.getTitulo(), estado.getMensagem());
+        GerenteNotificacoes.getInstance().enviarNotificacao(notificacao, estado.getUsuariosAlvo());
     }
 }

@@ -9,7 +9,9 @@ import com.model.Usuario;
 import com.service.GerenteUsuarios;
 import com.state.lista_usuarios.AutorizacaoState;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -24,14 +26,12 @@ public class AutorizarCommand implements IListaUsuariosCommand{
     
     @Override
     public void executar(){
-        List<Integer> codsUsuarioBuscar = new ArrayList<>();
-        for(int rowIndex : estado.getIndicesLinhasUsuarioSelecionadas()){
-            codsUsuarioBuscar.add(estado.getCodUsuarioPorLinha(rowIndex));
-        }
+        List<Integer> codsUsuarioBuscar = estado.getCodsUsuariosSelecionados();
         List<Usuario> usuariosParaAutorizar = GerenteUsuarios.getInstance().buscarUsuarios(codsUsuarioBuscar);
+        Map<String, Object> novosDados = new HashMap<>();
+        novosDados.put("ehAutorizado", Boolean.TRUE);
         for(Usuario usuario : usuariosParaAutorizar){
-            usuario.setIsAutorizado(Boolean.TRUE);
-            new UsuarioDAO().update(usuario);
+            GerenteUsuarios.getInstance().atualizarUsuario(usuario, novosDados);
         }
     }
 }

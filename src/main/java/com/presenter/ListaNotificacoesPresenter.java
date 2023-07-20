@@ -10,7 +10,9 @@ import com.view.ListaNotificacoesView;
 import com.model.Notificacao;
 import com.model.Usuario;
 import com.model.UsuarioNotificacao;
+import com.service.GerenteNotificacoes;
 import com.service.GerenteSessao;
+import com.service.observer.INotificacoesCarregadasObserver;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
@@ -23,10 +25,11 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Vanderson
  */
-public class ListaNotificacoesPresenter {
+public class ListaNotificacoesPresenter implements INotificacoesCarregadasObserver{
     private ListaNotificacoesState estado;
     private ListaNotificacoesView view;
-    List<UsuarioNotificacao>  usrNots;
+    private List<UsuarioNotificacao> usrNots;
+    private JPanel painelConteudo;
 
     public void setEstado(ListaNotificacoesState estado) {
         this.estado = estado;
@@ -34,11 +37,24 @@ public class ListaNotificacoesPresenter {
     
     public ListaNotificacoesPresenter(JPanel painelConteudo){
         this.view = new ListaNotificacoesView();
+        this.painelConteudo = painelConteudo;
+        
         view.setVisible(true);
         painelConteudo.add(view);
         
-        
         configurarTela();
+    }
+    
+    @Override
+    public void atualizarNotificacoesCarregadas(List<Notificacao> notificacoes){
+        
+    }
+    
+    public void close(){
+        painelConteudo.remove(view);
+        painelConteudo.revalidate();
+        painelConteudo.repaint();
+        GerenteNotificacoes.getInstance().removeObserver(this);
     }
     
     private void configurarTela(){
@@ -82,7 +98,4 @@ public class ListaNotificacoesPresenter {
         view.getNotCaixaField().setText(totalNotificacoes+" notificações na caixa");
         view.getNaoLidasField().setText(qtdNotificacoesNaoLidas+" notificações não lidas");
     }
-    
-    
-    
 }

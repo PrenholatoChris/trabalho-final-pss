@@ -55,6 +55,10 @@ public class Notificacao {
         return titulo;
     }
 
+    public void setNotCod(int notCod){
+        this.notCod = notCod;
+    }
+    
     public void setMensagem(String mensagem) {
         this.mensagem = mensagem;
     }

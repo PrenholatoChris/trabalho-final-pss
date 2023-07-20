@@ -46,7 +46,7 @@ public class ListaUsuariosPresenter implements IUsuariosObserver {
         view.getEnviarNotificacaoBotao().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                setStateToEnvioNotificacao();
+                enviarNotificacao();
             }
         });
         
@@ -72,7 +72,7 @@ public class ListaUsuariosPresenter implements IUsuariosObserver {
         }
     }
     
-    private void setStateToEnvioNotificacao(){
+    private void enviarNotificacao(){
         if(view.getTabelaDados().getSelectedRowCount() > 0){
             estado = new EnvioNotificacaoState(this, view);
         }

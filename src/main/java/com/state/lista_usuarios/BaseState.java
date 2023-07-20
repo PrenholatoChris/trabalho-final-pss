@@ -44,7 +44,7 @@ public class BaseState extends ListaUsuariosState {
             @Override
             public void actionPerformed(ActionEvent e){
                 if(view.getTabelaDados().getSelectedRowCount() == 1){
-                    Usuario usuarioSelecionado = GerenteUsuarios.getInstance().buscarUsuario(getCodUsuarioPorLinha(getIndicesLinhasUsuarioSelecionadas()[0]));
+                    Usuario usuarioSelecionado = GerenteUsuarios.getInstance().buscarUsuario(getCodsUsuariosSelecionados().get(0));
                     new EditorUsuarioPresenter(view.getPainelConteudo(), usuarioSelecionado);
                 }
             }

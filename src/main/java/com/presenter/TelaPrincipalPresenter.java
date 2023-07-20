@@ -5,7 +5,10 @@
 package com.presenter;
 
 import com.model.Usuario;
+import com.service.GerenteNotificacoes;
+import com.service.GerenteSessao;
 import com.service.observer.ISessaoObserver;
+import com.state.tela_principal.AlteracaoSenhaState;
 import com.state.tela_principal.InicializacaoState;
 import com.state.tela_principal.TelaPrincipalState;
 import com.view.TelaPrincipalView;
@@ -17,19 +20,27 @@ import com.view.TelaPrincipalView;
 public class TelaPrincipalPresenter implements ISessaoObserver{
     private TelaPrincipalView view;
     private TelaPrincipalState estado;
-    
-    private ListaNotificacoesPresenter notPresenter;
-    private ListaUsuariosPresenter usrPresenter;
-//    private CriarUsuarioNotificacaoPresenter usrNotPresenter;
+    private ListaUsuariosPresenter listaUsuarios;
+
+    public ListaUsuariosPresenter getListaUsuarios() {
+        return listaUsuarios;
+    }
 
     public void setEstado(TelaPrincipalState estado) {
         this.estado = estado;
+    }
+
+    public void setListaUsuarios(ListaUsuariosPresenter listaUsuarios) {
+        this.listaUsuarios = listaUsuarios;
     }
     
     public TelaPrincipalPresenter(){
         this.view = new TelaPrincipalView();
         this.estado = new InicializacaoState(this, view.getPainelConteudo());
-//        addViews();
+        
+        RodapePresenter rodape = new RodapePresenter(view.getPainelRodape(), view.getPainelConteudo(), this);
+        GerenteSessao.getInstance().addObserver(rodape);
+        GerenteNotificacoes.getInstance().addObserver(rodape);
     }
     
     @Override
@@ -43,6 +54,10 @@ public class TelaPrincipalPresenter implements ISessaoObserver{
         }else{
             estado.sair();
         }
+    }
+    
+    public void alterarSenha(){
+        estado = new AlteracaoSenhaState(this, view.getPainelConteudo());
     }
     
 //   private void addViews(){

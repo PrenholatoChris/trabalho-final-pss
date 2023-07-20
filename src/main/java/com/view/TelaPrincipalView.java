@@ -5,6 +5,9 @@
 package com.view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import javax.swing.BorderFactory;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -15,9 +18,14 @@ import javax.swing.JPanel;
  */
 public class TelaPrincipalView {
     final private JPanel painelConteudo;
+    final private JPanel painelRodape;
     
     public JPanel getPainelConteudo(){
         return painelConteudo;
+    }
+
+    public JPanel getPainelRodape() {
+        return painelRodape;
     }
     
     public TelaPrincipalView(){
@@ -33,6 +41,10 @@ public class TelaPrincipalView {
         
         painelConteudo = new JPanel();
         desktop.add(painelConteudo, BorderLayout.CENTER);
+        
+        painelRodape = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 5));
+        painelRodape.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+        desktop.add(painelRodape, BorderLayout.SOUTH);
         
         frame.setVisible(true);
     }

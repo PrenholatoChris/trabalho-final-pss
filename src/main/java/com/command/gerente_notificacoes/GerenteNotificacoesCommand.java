@@ -14,5 +14,9 @@ import java.util.List;
 public abstract class GerenteNotificacoesCommand {
     protected List<Notificacao> notificacoesUsuarioLogado;
     
+    public GerenteNotificacoesCommand(List<Notificacao> notificacoesUsuarioLogado){
+        this.notificacoesUsuarioLogado = notificacoesUsuarioLogado;
+    }
+    
     public abstract void executar();
 }

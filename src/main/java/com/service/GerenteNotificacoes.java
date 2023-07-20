@@ -4,10 +4,13 @@
  */
 package com.service;
 
-import com.command.gerente_notificacoes.BuscarNotificacoesCommand;
+import com.command.gerente_notificacoes.EnviarNotificacaoCommand;
 import com.command.gerente_notificacoes.GerenteNotificacoesCommand;
-import com.dao.NotificacaoDAO;
 import com.model.Notificacao;
+import com.model.Usuario;
+import com.service.observer.INotificacoesCarregadasObserver;
+import com.service.observer.ISessaoObserver;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,24 +19,66 @@ import java.util.Map;
  *
  * @author Vanderson
  */
-public class GerenteNotificacoes {
+public class GerenteNotificacoes implements ISessaoObserver {
+    private static GerenteNotificacoes instance;
     private Map<String, GerenteNotificacoesCommand> comandos;
+    private List<INotificacoesCarregadasObserver> observers;
     private List<Notificacao> notificacoesUsuarioLogado;
     
-    public GerenteNotificacoes(){
-        carregarNotificacoes();
+    public static GerenteNotificacoes getInstance(){
+        if(instance == null){
+            instance = new GerenteNotificacoes();
+            GerenteSessao.getInstance().addObserver(instance);
+        }
+        return instance;
+    }
+    
+    private GerenteNotificacoes(){
         comandos = new HashMap<>();
-        comandos.put("Buscar", new BuscarNotificacoesCommand(notificacoesUsuarioLogado));
+        observers = new ArrayList<>();
+        notificacoesUsuarioLogado = new ArrayList<>();
+        
+        comandos.put("Enviar", new EnviarNotificacaoCommand(notificacoesUsuarioLogado));
     }
     
-    public List<Notificacao> buscarNotificacoes(List<Integer> codsBusca){
-        BuscarNotificacoesCommand comando = (BuscarNotificacoesCommand)comandos.get("Buscar");
-        comando.setCodsBusca(codsBusca);
+    public void addObserver(INotificacoesCarregadasObserver observer){
+        observers.add(observer);
+    }
+    
+    public void removeObserver(INotificacoesCarregadasObserver observer){
+        observers.remove(observer);
+    }
+    
+//    public List<Notificacao> buscarNotificacoes(List<Integer> codsBusca){
+//        BuscarNotificacoesCommand comando = (BuscarNotificacoesCommand)comandos.get("Buscar");
+//        comando.setCodsBusca(codsBusca);
+//        comando.executar();
+//        return comando.getNotificacoesEncontradas();
+//    }
+
+    @Override
+    public void atualizarSessao(Usuario usuarioLogado){
+        carregarNotificacoesUsuario(usuarioLogado);
+    }
+    
+    public void enviarNotificacao(Notificacao notificacao, List<Usuario> usuariosAlvo){
+        EnviarNotificacaoCommand comando = (EnviarNotificacaoCommand)comandos.get("Enviar");
+        comando.setNotificacao(notificacao);
+        comando.setUsuariosAlvo(usuariosAlvo);
         comando.executar();
-        return comando.getNotificacoesEncontradas();
+        if(usuariosAlvo.contains(GerenteSessao.getInstance().getUsuarioLogado())){
+            notificarObservers();
+        }
     }
     
-    private void carregarNotificacoes(){
-//        notificacoesUsuarioLogado = new NotificacaoDAO(). <- Trocar por método que busca as notificações de um usuário.
+    private void carregarNotificacoesUsuario(Usuario usuario){
+        notificacoesUsuarioLogado = new ArrayList<>();
+        notificarObservers();
+    }
+    
+    private void notificarObservers(){
+        for(INotificacoesCarregadasObserver observer : observers){
+            observer.atualizarNotificacoesCarregadas(notificacoesUsuarioLogado);
+        }
     }
 }

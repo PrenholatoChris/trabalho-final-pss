@@ -7,6 +7,8 @@ package com.state.lista_usuarios;
 import com.command.factory.lista_usuarios.ListaUsuariosCommandFactory;
 import com.presenter.ListaUsuariosPresenter;
 import com.view.ListaUsuariosView;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -32,12 +34,20 @@ public abstract class ListaUsuariosState {
         ListaUsuariosCommandFactory.getFactory(this).criar().executar();
     }
     
-    public int[] getIndicesLinhasUsuarioSelecionadas(){
-        return view.getTabelaDados().getSelectedRows();
-    }
+//    public int[] getIndicesLinhasUsuarioSelecionadas(){
+//        return view.getTabelaDados().getSelectedRows();
+//    }
+//    
+//    public Integer getCodUsuarioPorLinha(int index){
+//        return (Integer)view.getTabelaDados().getModel().getValueAt(index, 0);
+//    }
     
-    public Integer getCodUsuarioPorLinha(int index){
-        return (Integer)view.getTabelaDados().getModel().getValueAt(index, 0);
+    public List<Integer> getCodsUsuariosSelecionados(){
+        List<Integer> codsUsuarios = new ArrayList<>();
+        for(int index : view.getTabelaDados().getSelectedRows()){
+            codsUsuarios.add((Integer)view.getTabelaDados().getModel().getValueAt(index, 0));
+        }
+        return codsUsuarios;
     }
     
     protected void removerBotoesEstado(){

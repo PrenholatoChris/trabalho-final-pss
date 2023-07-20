@@ -19,6 +19,6 @@ public class AlterarSenhaCommand implements ITelaPrincipalCommand {
     
     @Override
     public void executar(){
-        
+        System.out.println("Sei la");
     }
 }

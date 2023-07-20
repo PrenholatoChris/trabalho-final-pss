@@ -4,11 +4,14 @@
  */
 package com.state.lista_usuarios;
 
+import com.model.Usuario;
 import com.presenter.ListaUsuariosPresenter;
+import com.service.GerenteUsuarios;
 import com.view.ListaUsuariosView;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
@@ -17,7 +20,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 /**
@@ -25,6 +27,20 @@ import javax.swing.border.EmptyBorder;
  * @author Vanderson
  */
 public class EnvioNotificacaoState extends ListaUsuariosState {
+    private JTextArea mensagemTextArea;
+    private JTextField tituloTextField;
+    
+    public String getMensagem(){
+        return mensagemTextArea.getText();
+    }
+    
+    public String getTitulo(){
+        return tituloTextField.getText();
+    }
+    
+    public List<Usuario> getUsuariosAlvo(){
+        return GerenteUsuarios.getInstance().buscarUsuarios(getCodsUsuariosSelecionados());
+    }
     
     public EnvioNotificacaoState(ListaUsuariosPresenter listaUsuarios, ListaUsuariosView view){
         super.listaUsuarios = listaUsuarios;
@@ -36,6 +52,11 @@ public class EnvioNotificacaoState extends ListaUsuariosState {
     @Override
     public void autorizar(){
         listaUsuarios.setEstado(new AutorizacaoState(listaUsuarios, view));
+    }
+    
+    @Override
+    public void retornar(){
+        listaUsuarios.setEstado(new BaseState(listaUsuarios, view));
     }
     
     private void exibirTelaEnvioNotificacao(){
@@ -53,7 +74,7 @@ public class EnvioNotificacaoState extends ListaUsuariosState {
         painelPrincipal.add(painelTitulo);
         
         painelTitulo.add(new JLabel("Titulo: "));
-        JTextField tituloTextField = new JTextField();
+        tituloTextField = new JTextField();
         painelTitulo.add(tituloTextField);
         
         JPanel painelMensagemLabel = new JPanel();
@@ -67,7 +88,7 @@ public class EnvioNotificacaoState extends ListaUsuariosState {
         painelMensagemTextArea.setLayout(new GridLayout(0, 1, 10, 10));
         painelPrincipal.add(painelMensagemTextArea);
         
-        JTextArea mensagemTextArea = new JTextArea();
+        mensagemTextArea = new JTextArea();
         mensagemTextArea.setColumns(50);
         mensagemTextArea.setRows(20);
         painelMensagemTextArea.add(new JScrollPane(mensagemTextArea));
@@ -78,6 +99,12 @@ public class EnvioNotificacaoState extends ListaUsuariosState {
         painelPrincipal.add(painelBotoes);
         
         JButton enviarBotao = new JButton("Enviar");
+        enviarBotao.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                executar();
+            }
+        });
         painelBotoes.add(enviarBotao);
         
         JButton cancelarBotao = new JButton("Cancelar");
@@ -85,9 +112,9 @@ public class EnvioNotificacaoState extends ListaUsuariosState {
             @Override
             public void actionPerformed(ActionEvent e){
                 if(view.getTabelaDados().getSelectedRowCount() > 1){
-                    listaUsuarios.setEstado(new AutorizacaoState(listaUsuarios, view));
+                    autorizar();
                 }else{
-                    listaUsuarios.setEstado(new BaseState(listaUsuarios, view));
+                    retornar();
                 }
                 view.getPainelConteudo().remove(telaEnvioNotificacao);
                 view.getPainelConteudo().revalidate();

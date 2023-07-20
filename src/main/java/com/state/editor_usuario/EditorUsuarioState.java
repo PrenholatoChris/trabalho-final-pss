@@ -5,7 +5,6 @@
 package com.state.editor_usuario;
 
 import com.command.factory.editor_usuario.EditorUsuarioCommandFactory;
-import com.model.Usuario;
 import com.presenter.EditorUsuarioPresenter;
 import com.view.EditorUsuarioView;
 import java.awt.event.ActionEvent;
