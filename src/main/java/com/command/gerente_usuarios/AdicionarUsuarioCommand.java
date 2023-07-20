@@ -6,6 +6,9 @@ package com.command.gerente_usuarios;
 
 import com.dao.UsuarioDAO;
 import com.model.Usuario;
+import com.service.GerenteSessao;
+import com.sistemalogger.SistemaLogger;
+import com.sistemalogger.TipoOperacao;
 import java.util.List;
 
 /**
@@ -30,5 +33,6 @@ public class AdicionarUsuarioCommand extends GerenteUsuariosCommand{
         usuarios.add(usuarioAdicao);
         dao.insert(usuarioAdicao);
         usuarioAdicao.setUsrCod(dao.getLastRegister());
+        SistemaLogger.makeInfoLog(TipoOperacao.INSERINDO_USUARIO, usuarioAdicao.getNome(), GerenteSessao.getInstance().getUsuarioLogado().getNome());
     }
 }

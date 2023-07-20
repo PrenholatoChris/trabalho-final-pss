@@ -11,6 +11,7 @@ import com.service.observer.ISessaoObserver;
 import com.state.tela_principal.AlteracaoSenhaState;
 import com.state.tela_principal.InicializacaoState;
 import com.state.tela_principal.TelaPrincipalState;
+import com.view.ChangeLogView;
 import com.view.TelaPrincipalView;
 
 /**
@@ -37,7 +38,6 @@ public class TelaPrincipalPresenter implements ISessaoObserver{
     public TelaPrincipalPresenter(){
         this.view = new TelaPrincipalView();
         this.estado = new InicializacaoState(this, view.getPainelConteudo());
-        
         RodapePresenter rodape = new RodapePresenter(view.getPainelRodape(), view.getPainelConteudo(), this);
         GerenteSessao.getInstance().addObserver(rodape);
         GerenteNotificacoes.getInstance().addObserver(rodape);

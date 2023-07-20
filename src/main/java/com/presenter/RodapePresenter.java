@@ -11,6 +11,7 @@ import com.service.GerenteNotificacoes;
 import com.service.GerenteSessao;
 import com.service.observer.INotificacoesCarregadasObserver;
 import com.service.observer.ISessaoObserver;
+import com.view.ChangeLogView;
 import com.view.RodapeView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,6 +26,7 @@ public class RodapePresenter implements ISessaoObserver, INotificacoesCarregadas
     private RodapeView view;
     private JPanel painelRodape;
     private ListaNotificacoesPresenter listaNotificacoes = null;
+    private ChangeLogView trocarLog = null;
     
     public RodapePresenter(JPanel painelRodape, JPanel painelConteudo, TelaPrincipalPresenter telaPrincipal){
         this.painelRodape = painelRodape;
@@ -55,6 +57,19 @@ public class RodapePresenter implements ISessaoObserver, INotificacoesCarregadas
             @Override
             public void actionPerformed(ActionEvent e){
                 System.exit(0);
+            }
+        });
+        
+        view.getBotaoTrocarLog().addActionListener((e) -> {
+            if(trocarLog == null){
+                trocarLog = new ChangeLogView("Trocar Log");
+                painelConteudo.add(trocarLog);
+                trocarLog.setVisible(true);
+            }else{
+                if(trocarLog.isVisible())
+                    trocarLog.setVisible(false);
+                else
+                    trocarLog.setVisible(true);
             }
         });
     }

@@ -22,7 +22,6 @@ public class ValidadorSenhaService {
              for (String erroSenha: lista) {
                  senhaRecusada = senhaRecusada + erroSenha + "\n";
              }
-             System.out.print("passei ");
              JOptionPane.showInternalMessageDialog(null, senhaRecusada,"Senha inválida", JOptionPane.WARNING_MESSAGE);
              throw new Exception(senhaRecusada);
         }

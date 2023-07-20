@@ -17,7 +17,12 @@ public class RodapeView {
     private JButton botaoNotificacoes;
     private JButton botaoSair;
     private JLabel informacoesUsuarioLabel;
+    private JButton botaoTrocarLog;
 
+    public JButton getBotaoTrocarLog() {
+        return botaoTrocarLog;
+    }
+    
     public JButton getBotaoAlterarSenha() {
         return botaoAlterarSenha;
     }
@@ -46,5 +51,8 @@ public class RodapeView {
         
         botaoSair = new JButton("Sair");
         painelRodape.add(botaoSair);
+        
+        botaoTrocarLog = new JButton("Trocar Log");
+        painelRodape.add(botaoTrocarLog);
     }
 }

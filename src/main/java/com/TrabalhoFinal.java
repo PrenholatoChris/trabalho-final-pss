@@ -34,6 +34,5 @@ public class TrabalhoFinal {
         new NotificacaoDAO().criarTabelaNotificao();
         new UsuarioNotificacaoDAO().criarTabelaUsuarioNotificacao();
         GerenteSessao.getInstance().addObserver(new TelaPrincipalPresenter());
-        
     }
 }
