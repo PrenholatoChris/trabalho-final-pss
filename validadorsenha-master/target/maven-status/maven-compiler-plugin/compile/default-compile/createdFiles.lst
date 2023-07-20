@@ -1,0 +1,16 @@
+com\pss\senha\validacao\LetrasAcentuadasTratador.class
+com\pss\senha\validacao\NumeroDeCaracteresDistintosTratador.class
+com\pss\senha\validacao\EmailTratador.class
+com\pss\senha\validacao\TratadorSenha.class
+com\pss\senha\validacao\DataTratador.class
+com\pss\senha\validacao\CaseSensitiveTratador.class
+com\pss\senha\validacao\ValidadorSenha.class
+com\pss\senha\validacao\WhiteSpaceTratador.class
+com\pss\senha\validacao\TamanhoMinimoTratador.class
+com\pss\senha\validacao\LetrasSequencialTratador.class
+com\pss\senha\validacao\MaisUsadasTratador.class
+com\pss\senha\validacao\NumeroSequencialTratador.class
+com\pss\senha\validacao\CaracterEspecialTratador.class
+com\pss\senha\validacao\CPFTratador.class
+com\pss\senha\validacao\TamanhoMaximoTratador.class
+com\pss\senha\validacao\SomenteNumerosTratador.class

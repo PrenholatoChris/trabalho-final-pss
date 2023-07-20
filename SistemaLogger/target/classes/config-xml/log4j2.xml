@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+  <Appenders>
+    <File name="File" fileName="logs/application-xml.log">
+      <PatternLayout>
+        <Pattern>&lt;log&gt;%n  &lt;MSG&gt;%msg&lt;/MSG&gt;%n  &lt;OPERACAO&gt;%X{operacao}&lt;/OPERACAO&gt;%n  &lt;NOME&gt;%X{nome}&lt;/NOME&gt;%n  &lt;DATA&gt;%d{dd-MM-yyyy}&lt;/DATA&gt;%n  &lt;HORA&gt;%d{HH:mm:ss}&lt;/HORA&gt;%n  &lt;USUARIO&gt;%X{usuario}&lt;/USUARIO&gt;%n&lt;/log&gt;%n</Pattern>
+      </PatternLayout>
+    </File>
+  </Appenders>
+  <Loggers>
+    <Root level="info">
+      <AppenderRef ref="File"/>
+    </Root>
+  </Loggers>
+</Configuration>
