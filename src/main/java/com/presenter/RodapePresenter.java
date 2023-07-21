@@ -77,8 +77,6 @@ public class RodapePresenter implements ISessaoObserver, INotificacoesCarregadas
     @Override
     public void atualizarNotificacoesCarregadas(List<UsuarioNotificacao> notificacoesUsuario){
         view.getBotaoNotificacoes().setText(String.format("Notificações - %d", notificacoesUsuario.size()));
-        view.getBotaoNotificacoes().revalidate();
-        view.getBotaoNotificacoes().repaint();
     }
     
     @Override

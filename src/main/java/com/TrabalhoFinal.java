@@ -15,7 +15,7 @@ import com.model.UsuarioNotificacao;
 import com.presenter.EditorUsuarioPresenter;
 import com.presenter.TelaPrincipalPresenter;
 import com.service.GerenteSessao;
-import com.service.ListaUsuarioRepository;
+import com.service.EnvioNotificacaoRepository;
 import com.sistemalogger.SistemaLogger;
 import com.sistemalogger.TipoOperacao;
 
@@ -30,6 +30,9 @@ public class TrabalhoFinal {
     public static void main(String[] args) {
 
         SistemaLogger.trocarLog(SistemaLogger.csvLog);
+//        new UsuarioDAO().deletarTabelaUsuario();
+//        new NotificacaoDAO().deletarTabelaNotificacao();
+//        new UsuarioNotificacaoDAO().deletarTabelaNotificacao();
         new UsuarioDAO().criarTabelaUsuario();
         new NotificacaoDAO().criarTabelaNotificao();
         new UsuarioNotificacaoDAO().criarTabelaUsuarioNotificacao();

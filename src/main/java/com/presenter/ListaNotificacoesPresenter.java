@@ -30,7 +30,7 @@ import javax.swing.table.DefaultTableModel;
 public class ListaNotificacoesPresenter implements INotificacoesCarregadasObserver{
     private ListaNotificacoesState estado;
     private ListaNotificacoesView view;
-    private List<UsuarioNotificacao> usrNots;
+//    private List<UsuarioNotificacao> usrNots;
     private JPanel painelConteudo;
 
     public void setEstado(ListaNotificacoesState estado) {
@@ -49,11 +49,12 @@ public class ListaNotificacoesPresenter implements INotificacoesCarregadasObserv
     
     @Override
     public void atualizarNotificacoesCarregadas(List<UsuarioNotificacao> notificacoesUsuario){
-        
+        atualizar();
     }
     
     private void atualizar(){
         JTable tabela = view.getNotificationTable();
+        List<UsuarioNotificacao> usrNots = GerenteNotificacoes.getInstance().getNotificacoesUsuarioLogado();
         DefaultTableModel model;//= (DefaultTableModel) tabela.getModel();
         String[] columns = {"msgCod", "Titulo", "Mensagem", "Lida"};
         Object[][] data = new Object[usrNots.size()][4];
@@ -85,7 +86,7 @@ public class ListaNotificacoesPresenter implements INotificacoesCarregadasObserv
     
     private void configurarTela(){
         //Passar de parametro para ca
-        usrNots = UsuarioNotificacao.getNotificationsOfUser(GerenteSessao.getInstance().getUsuarioLogado().getUsrCod());
+        List<UsuarioNotificacao> usrNots = GerenteNotificacoes.getInstance().getNotificacoesUsuarioLogado();
         JTable tabela = view.getNotificationTable();
         tabela.addMouseListener(
                 new MouseAdapter() {
@@ -93,8 +94,9 @@ public class ListaNotificacoesPresenter implements INotificacoesCarregadasObserv
                         Integer index = tabela.getSelectedRow();
                         UsuarioNotificacao uNot = usrNots.get(index);
                         JOptionPane.showMessageDialog(view, uNot.getMensagem(),uNot.getTitulo(), 1);
-                        uNot.setWasRead(true);
-                        uNot.update();
+//                        uNot.setWasRead(true);
+//                        uNot.update();
+                        GerenteNotificacoes.getInstance().lerNotificacao(index);
                         Usuario usuarioLeitor = GerenteSessao.getInstance().getUsuarioLogado();
                         SistemaLogger.makeInfoLog(TipoOperacao.LEITURA_NOTIFICACAO, usuarioLeitor.getNome(), usuarioLeitor.getNome());
                     }

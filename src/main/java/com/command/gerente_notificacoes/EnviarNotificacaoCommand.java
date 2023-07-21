@@ -7,7 +7,7 @@ package com.command.gerente_notificacoes;
 import com.model.Notificacao;
 import com.model.Usuario;
 import com.model.UsuarioNotificacao;
-import com.service.ListaUsuarioRepository;
+import com.service.EnvioNotificacaoRepository;
 import java.util.List;
 
 /**
@@ -17,6 +17,11 @@ import java.util.List;
 public class EnviarNotificacaoCommand extends GerenteNotificacoesCommand{
     private Notificacao notificacao;
     private List<Usuario> usuariosAlvo;
+    private UsuarioNotificacao notificacaoUsuarioLogado;
+
+    public UsuarioNotificacao getNotificacaoUsuarioLogado() {
+        return notificacaoUsuarioLogado;
+    }
 
     public void setNotificacao(Notificacao notificacao) {
         this.notificacao = notificacao;
@@ -31,6 +36,8 @@ public class EnviarNotificacaoCommand extends GerenteNotificacoesCommand{
     }
     
     public void executar(){
-        new ListaUsuarioRepository(usuariosAlvo, notificacao);
+        EnvioNotificacaoRepository repositorio = new EnvioNotificacaoRepository(usuariosAlvo, notificacao);
+        repositorio.registrarNoBanco();
+        notificacaoUsuarioLogado = repositorio.getNotificacaoUsuarioLogado();
     }
 }

@@ -27,6 +27,7 @@ import javax.swing.border.EmptyBorder;
  * @author Vanderson
  */
 public class EnvioNotificacaoState extends ListaUsuariosState {
+    private JInternalFrame telaEnvioNotificacao;
     private JTextArea mensagemTextArea;
     private JTextField tituloTextField;
     
@@ -60,7 +61,7 @@ public class EnvioNotificacaoState extends ListaUsuariosState {
     }
     
     private void exibirTelaEnvioNotificacao(){
-        JInternalFrame telaEnvioNotificacao = new JInternalFrame();
+        telaEnvioNotificacao = new JInternalFrame();
         telaEnvioNotificacao.setTitle("Escreva a Notificação");
         
         JPanel painelPrincipal = new JPanel();
@@ -103,6 +104,7 @@ public class EnvioNotificacaoState extends ListaUsuariosState {
             @Override
             public void actionPerformed(ActionEvent e){
                 executar();
+                fecharJanelaEstado();
             }
         });
         painelBotoes.add(enviarBotao);
@@ -111,14 +113,7 @@ public class EnvioNotificacaoState extends ListaUsuariosState {
         cancelarBotao.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                if(view.getTabelaDados().getSelectedRowCount() > 1){
-                    autorizar();
-                }else{
-                    retornar();
-                }
-                view.getPainelConteudo().remove(telaEnvioNotificacao);
-                view.getPainelConteudo().revalidate();
-                view.getPainelConteudo().repaint();
+                fecharJanelaEstado();
             }
         });
         painelBotoes.add(cancelarBotao);
@@ -126,5 +121,16 @@ public class EnvioNotificacaoState extends ListaUsuariosState {
         telaEnvioNotificacao.pack();
         telaEnvioNotificacao.show();
         view.getPainelConteudo().add(telaEnvioNotificacao);
+    }
+    
+    private void fecharJanelaEstado(){
+        if(view.getTabelaDados().getSelectedRowCount() > 1){
+            autorizar();
+        }else{
+            retornar();
+        }
+        view.getPainelConteudo().remove(telaEnvioNotificacao);
+        view.getPainelConteudo().revalidate();
+        view.getPainelConteudo().repaint();
     }
 }

@@ -18,7 +18,7 @@ public class ListaNotificacoesView extends javax.swing.JInternalFrame {
      * Creates new form ListaNotificacoesView2
      */
     public ListaNotificacoesView() {
-        super("Lista de Notificacoes",true, false, true, true);
+        super("Lista de Notificacoes",false, false, false, false);
         initComponents();
     }
 

@@ -4,6 +4,7 @@
  */
 package com.service;
 
+import com.dao.UsuarioNotificacaoDAO;
 import com.model.Notificacao;
 import com.model.Usuario;
 import com.model.UsuarioNotificacao;
@@ -15,19 +16,27 @@ import java.util.List;
  *
  * @author chris
  */
-public class ListaUsuarioRepository {
-    List<Usuario> usuarios;
-    Notificacao not;
+public class EnvioNotificacaoRepository {
     Integer notCod;
+    Notificacao notificacao;
+    List<Usuario> usuarios;
     
-    public ListaUsuarioRepository(List<Usuario> usuarios, Notificacao not){
-        this.usuarios = usuarios;
-        this.not = not;
-        registrarNoBanco();
+    public UsuarioNotificacao getNotificacaoUsuarioLogado(){
+        Usuario usuarioLogado = GerenteSessao.getInstance().getUsuarioLogado();
+        if(usuarios.contains(usuarioLogado)){
+            return new UsuarioNotificacao(new UsuarioNotificacaoDAO().getLastRegister(), usuarioLogado.getUsrCod(), notCod, false,
+                    notificacao.getMensagem(), notificacao.getTitulo());
+        }
+        return null;
     }
     
-    private void registrarNoBanco(){
-        Integer notCod = Notificacao.criar(this.not);
+    public EnvioNotificacaoRepository(List<Usuario> usuarios, Notificacao not){
+        this.usuarios = usuarios;
+        this.notificacao = not;
+    }
+    
+    public void registrarNoBanco(){
+        notCod = Notificacao.criar(this.notificacao);
         for (Usuario usuario : usuarios) {
             UsuarioNotificacao userNot = new UsuarioNotificacao(usuario.getUsrCod(), notCod);
             UsuarioNotificacao.criar(userNot);

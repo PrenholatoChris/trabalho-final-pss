@@ -34,6 +34,10 @@ public class GerenteNotificacoes implements ISessaoObserver {
         return instance;
     }
     
+    public List<UsuarioNotificacao> getNotificacoesUsuarioLogado(){
+        return notificacoesUsuarioLogado;
+    }
+    
     private GerenteNotificacoes(){
         comandos = new HashMap<>();
         observers = new ArrayList<>();
@@ -59,21 +63,27 @@ public class GerenteNotificacoes implements ISessaoObserver {
 
     @Override
     public void atualizarSessao(Usuario usuarioLogado){
-        carregarNotificacoesUsuario(usuarioLogado);
+        notificacoesUsuarioLogado = UsuarioNotificacao.getNotificationsOfUser(usuarioLogado.getUsrCod());
+        notificarObservers();
     }
     
     public void enviarNotificacao(Notificacao notificacao, List<Usuario> usuariosAlvo){
         EnviarNotificacaoCommand comando = (EnviarNotificacaoCommand)comandos.get("Enviar");
+        UsuarioNotificacao notUsuarioLogado;
         comando.setNotificacao(notificacao);
         comando.setUsuariosAlvo(usuariosAlvo);
         comando.executar();
-        if(usuariosAlvo.contains(GerenteSessao.getInstance().getUsuarioLogado())){
+        notUsuarioLogado = comando.getNotificacaoUsuarioLogado();
+        if(notUsuarioLogado != null){
+            notificacoesUsuarioLogado.add(notUsuarioLogado);
             notificarObservers();
         }
     }
     
-    private void carregarNotificacoesUsuario(Usuario usuario){
-        notificacoesUsuarioLogado = UsuarioNotificacao.getNotificationsOfUser(GerenteSessao.getInstance().getUsuarioLogado().getUsrCod());
+    public void lerNotificacao(int indexNotificacao){
+        UsuarioNotificacao usrNot = notificacoesUsuarioLogado.get(indexNotificacao);
+        usrNot.setWasRead(true);
+        usrNot.update();
         notificarObservers();
     }
     
