@@ -12,6 +12,7 @@ import com.command.gerente_usuarios.AtualizarUsuarioCommand;
 import com.command.gerente_usuarios.AdicionarUsuarioCommand;
 import com.dao.UsuarioDAO;
 import com.model.Usuario;
+import com.service.observer.ISessaoObserver;
 import com.service.observer.IUsuariosObserver;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,7 +24,7 @@ import java.util.Map;
  *
  * @author Vanderson
  */
-public class GerenteUsuarios {
+public class GerenteUsuarios implements ISessaoObserver {
     private static GerenteUsuarios instance = null;
     private Map<String, GerenteUsuariosCommand> comandos;
     private List<IUsuariosObserver> observers;
@@ -60,6 +61,13 @@ public class GerenteUsuarios {
     
     public void removeObserver(IUsuariosObserver observer){
         observers.remove(observer);
+    }
+    
+    @Override
+    public void atualizarSessao(Usuario usuarioLogado){
+        if(usuarioLogado == null){
+            observers.clear();
+        }
     }
     
     public void adicionarUsuario(Usuario usuario){

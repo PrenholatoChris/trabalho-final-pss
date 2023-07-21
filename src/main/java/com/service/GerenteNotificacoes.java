@@ -63,8 +63,10 @@ public class GerenteNotificacoes implements ISessaoObserver {
 
     @Override
     public void atualizarSessao(Usuario usuarioLogado){
-        notificacoesUsuarioLogado = UsuarioNotificacao.getNotificationsOfUser(usuarioLogado.getUsrCod());
-        notificarObservers();
+        if(usuarioLogado != null){
+            notificacoesUsuarioLogado = UsuarioNotificacao.getNotificationsOfUser(usuarioLogado.getUsrCod());
+            notificarObservers();
+        }
     }
     
     public void enviarNotificacao(Notificacao notificacao, List<Usuario> usuariosAlvo){

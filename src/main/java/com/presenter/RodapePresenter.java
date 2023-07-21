@@ -56,7 +56,7 @@ public class RodapePresenter implements ISessaoObserver, INotificacoesCarregadas
         view.getBotaoSair().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                System.exit(0);
+                GerenteSessao.getInstance().setUsuarioLogado(null);
             }
         });
         

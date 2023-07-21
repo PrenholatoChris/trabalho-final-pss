@@ -25,6 +25,9 @@ public class LoginNormalState extends TelaPrincipalState{
     
     @Override
     public void sair(){
+        painelConteudo.removeAll();
+        painelConteudo.revalidate();
+        painelConteudo.repaint();
         telaPrincipal.setEstado(new InicializacaoState(telaPrincipal, painelConteudo));
     }
 }

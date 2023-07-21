@@ -39,6 +39,10 @@ public class LoginAdministrativoState extends TelaPrincipalState{
     
     @Override
     public void sair(){
+        painelConteudo.removeAll();
+        painelConteudo.revalidate();
+        painelConteudo.repaint();
+        telaPrincipal.setListaUsuarios(null);
         telaPrincipal.setEstado(new InicializacaoState(telaPrincipal, painelConteudo));
     }
 }

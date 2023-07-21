@@ -19,7 +19,7 @@ public class ChangeLogView extends javax.swing.JInternalFrame {
      * Creates new form ChangeLogView
      */
     public ChangeLogView(String title){//boolean resizable,boolean closable,boolean maximizable,boolean iconable) {
-        super(title,false, true);
+        super(title,false, false);
         initComponents();
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -33,6 +33,7 @@ public class ChangeLogView extends javax.swing.JInternalFrame {
             }else{
                 SistemaLogger.trocarLog(SistemaLogger.xmlLog);
             }
+            this.setVisible(false);
          });
     }
     
