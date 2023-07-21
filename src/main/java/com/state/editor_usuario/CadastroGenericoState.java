@@ -9,6 +9,7 @@ import com.view.EditorUsuarioView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -24,6 +25,7 @@ public class CadastroGenericoState extends EditorUsuarioState{
             @Override
             public void actionPerformed(ActionEvent e){
                 executar();
+                JOptionPane.showMessageDialog(null, "Cadastro efetuado", "Cadastro", JOptionPane.INFORMATION_MESSAGE);
             }
         });
         view.getPainelBotoes().add(botaoConfirmar);
