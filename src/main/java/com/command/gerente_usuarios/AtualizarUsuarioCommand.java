@@ -7,6 +7,7 @@ package com.command.gerente_usuarios;
 import com.dao.UsuarioDAO;
 import com.model.Usuario;
 import com.service.GerenteSessao;
+import com.service.ValidadorSenhaService;
 import com.sistemalogger.SistemaLogger;
 import com.sistemalogger.TipoOperacao;
 import java.util.List;
@@ -42,7 +43,12 @@ public class AtualizarUsuarioCommand extends GerenteUsuariosCommand{
                     usuarioAtualizacao.setNome((String)novosDados.get(chave));
                     break;
                 case "senha":
-                    usuarioAtualizacao.setSenha((String)novosDados.get(chave));
+                    try{
+                        ValidadorSenhaService.validar((String)novosDados.get(chave));
+                        usuarioAtualizacao.setSenha((String)novosDados.get(chave));
+                    }catch(Exception e){
+                        SistemaLogger.makeErrorLog(TipoOperacao.ALTERANDO_SENHA, (String)novosDados.get("nome"), GerenteSessao.getInstance().getUsuarioLogado().getNome(), e);
+                    }
                     break;
                 case "ehAdministrador":
                     usuarioAtualizacao.setIsAdmin((Boolean)novosDados.get(chave));

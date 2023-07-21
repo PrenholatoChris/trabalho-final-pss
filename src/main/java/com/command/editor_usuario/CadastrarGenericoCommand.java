@@ -9,6 +9,7 @@ import com.service.GerenteSessao;
 import com.service.GerenteUsuarios;
 import com.service.ValidadorSenhaService;
 import com.state.editor_usuario.CadastroGenericoState;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -33,6 +34,7 @@ public class CadastrarGenericoCommand implements IEditorUsuarioCommand{
                GerenteSessao.getInstance().setUsuarioLogado(usuario);
                estado.externalClose();
             }
+            JOptionPane.showMessageDialog(null, "Cadastro efetuado", "Cadastro", JOptionPane.INFORMATION_MESSAGE);
         }catch(Exception e){}
     }
 }

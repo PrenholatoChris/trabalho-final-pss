@@ -28,14 +28,6 @@ public class Usuario {
 //    ValidadorSenha validadorSenha = new ValidadorSenha();
 
     public Usuario(String nome, String senha,Boolean isAdmin, Boolean isAutorizado){
-        List<String> lista = new ValidadorSenha().validar(senha);
-         if(!lista.isEmpty()){
-             String senhaRecusada = "";
-             for (String erroSenha: lista) {
-                 senhaRecusada = senhaRecusada + erroSenha + "\n";
-             }
-            throw new RuntimeException("Senha inválida:\n " + senhaRecusada);
-        }
         this.nome = nome;
         this.senha = senha;
         this.isAdmin = isAdmin;
